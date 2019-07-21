@@ -7,6 +7,125 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/faces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewFaces"
+            android:layout_height="404dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            app:srcCompat="@drawable/faces" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/Botonera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="474dp">
+
+            <Button
+                android:id="@+id/btn_Reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="26dp"
+
+                android:background="@drawable/button_bg_rounded_corners"
+                android:text="@string/reset_btn" />
+
+
+            <Button
+                android:id="@+id/btn_solver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="26dp"
+                android:background="@drawable/button_bg_rounded_corners"
+                android:text="@string/solver_tab" />
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/Sequence"
+        android:layout_width="399dp"
+        android:layout_height="138dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Botonera"
+        tools:layout_editor_absoluteX="6dp">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/mov_title"
+            android:textColor="@color/grayDark"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="@+id/divider"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toStartOf="@+id/divider"
+            tools:layout_editor_absoluteY="1dp" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="wrap_content"
+            android:layout_height="1.5dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="28dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/mov_seq"
+                android:textColor="@color/grayDark"
+                android:textSize="28dp" />
+
+            <Button
+                android:id="@+id/nextStep"
+                android:layout_width="45dp"
+                android:scaleY=".38"
+                android:layout_height="wrap_content"
+                android:background="@drawable/next_enabled"
+                android:layout_marginLeft="40dp"/>
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_camera"
         android:layout_width="wrap_content"
@@ -19,4 +138,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_photo_camera_black_24dp"
         android:backgroundTint="@color/colorPrimary"/>
+
 </android.support.constraint.ConstraintLayout>

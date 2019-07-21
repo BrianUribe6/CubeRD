@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">CubeRD</string>
+    <string name="mov_title">Movimientos</string>
+    <string name="reset_btn">Reset</string>
+    <string name="mov_seq">R2</string>
     <string name="timer_tab">Timer</string>
     <string name="solver_tab">Solver</string>
     <string name="time">00.00</string>
