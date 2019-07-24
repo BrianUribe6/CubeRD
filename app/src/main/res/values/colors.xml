@@ -3,7 +3,15 @@
     <color name="colorPrimary">#ff8f00</color>
     <color name="colorPrimaryDark">#c56000</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="background">#F2F2F2</color>
-    <color name="black">#000</color>
+    <color name="backgroundColor">#F2F2F2</color>
+    <!--text color -->
     <color name="grayDark">#252525</color>
+    <!--Pieces color-->
+    <color name="grayLight">#a6a6a6</color>
+    <color name="green">#04ac6c</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#E91E63</color>
+    <color name="blue">#3F51B5</color>
+    <color name="orange">#FF9015</color>
+    <color name="yellow">#FFEB3B</color>
 </resources>

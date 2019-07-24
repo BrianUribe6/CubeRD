@@ -5,150 +5,150 @@
     android:id="@+id/constraintLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/backgroundColor"
     android:orientation="vertical">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/faces"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/appbar_padding_top"
-        android:gravity="center|top"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:id="@+id/faces"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/appbar_padding_top"-->
+        <!--android:gravity="center|top"-->
+        <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <ImageView
-            android:id="@+id/white_face6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".75"
-            android:scaleY=".75"
-            app:layout_constraintEnd_toStartOf="@+id/white_face2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/dummy_face" />
+        <!--<ImageView-->
+            <!--android:id="@+id/white_face6"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:scaleX=".75"-->
+            <!--android:scaleY=".75"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/white_face2"-->
+            <!--app:layout_constraintHorizontal_bias="0.5"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:srcCompat="@drawable/dummy_face" />-->
 
-        <ImageView
-            android:id="@+id/check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/white_face6"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_check_circle_black_24dp"
-            app:layout_constraintStart_toStartOf="@+id/white_face6"
-            app:layout_constraintTop_toBottomOf="@+id/white_face6" />
+        <!--<ImageView-->
+            <!--android:id="@+id/check"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignLeft="@+id/white_face6"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:src="@drawable/ic_check_circle_black_24dp"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/white_face6"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/white_face6" />-->
 
-        <ImageView
-            android:id="@+id/white_face2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".75"
-            android:scaleY=".75"
-            app:layout_constraintEnd_toStartOf="@+id/white_face3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/white_face6"
-            app:srcCompat="@drawable/dummy_face" />
+        <!--<ImageView-->
+            <!--android:id="@+id/white_face2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:scaleX=".75"-->
+            <!--android:scaleY=".75"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/white_face3"-->
+            <!--app:layout_constraintHorizontal_bias="0.5"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/white_face6"-->
+            <!--app:srcCompat="@drawable/dummy_face" />-->
 
-        <ImageView
-            android:id="@+id/check1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_check_circle_black_24dp"
-            app:layout_constraintEnd_toEndOf="@+id/white_face2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/white_face2"
-            app:layout_constraintTop_toBottomOf="@+id/white_face2" />
+        <!--<ImageView-->
+            <!--android:id="@+id/check1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="21dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:src="@drawable/ic_check_circle_black_24dp"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/white_face2"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/white_face2"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/white_face2" />-->
 
-        <ImageView
-            android:id="@+id/white_face3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".75"
-            android:scaleY=".75"
-            app:layout_constraintEnd_toStartOf="@+id/white_face5"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/white_face2"
-            app:srcCompat="@drawable/dummy_face" />
+        <!--<ImageView-->
+            <!--android:id="@+id/white_face3"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:scaleX=".75"-->
+            <!--android:scaleY=".75"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/white_face5"-->
+            <!--app:layout_constraintHorizontal_bias="0.5"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/white_face2"-->
+            <!--app:srcCompat="@drawable/dummy_face" />-->
 
-        <ImageView
-            android:id="@+id/check2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_check_circle_black_24dp"
-            app:layout_constraintEnd_toEndOf="@+id/white_face3"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/white_face3"
-            app:layout_constraintTop_toBottomOf="@+id/white_face3" />
+        <!--<ImageView-->
+            <!--android:id="@+id/check2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="21dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:src="@drawable/ic_check_circle_black_24dp"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/white_face3"-->
+            <!--app:layout_constraintHorizontal_bias="1.0"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/white_face3"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/white_face3" />-->
 
-        <ImageView
-            android:id="@+id/white_face5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".75"
-            android:scaleY=".75"
-            app:layout_constraintEnd_toStartOf="@+id/white_face"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/white_face3"
-            app:srcCompat="@drawable/dummy_face" />
+        <!--<ImageView-->
+            <!--android:id="@+id/white_face5"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:scaleX=".75"-->
+            <!--android:scaleY=".75"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/white_face"-->
+            <!--app:layout_constraintHorizontal_bias="0.5"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/white_face3"-->
+            <!--app:srcCompat="@drawable/dummy_face" />-->
 
-        <ImageView
-            android:id="@+id/check3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_check_circle_black_24dp"
-            app:layout_constraintEnd_toEndOf="@+id/white_face5"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/white_face5"
-            app:layout_constraintTop_toBottomOf="@+id/white_face5" />
+        <!--<ImageView-->
+            <!--android:id="@+id/check3"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="21dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:src="@drawable/ic_check_circle_black_24dp"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/white_face5"-->
+            <!--app:layout_constraintHorizontal_bias="1.0"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/white_face5"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/white_face5" />-->
 
-        <ImageView
-            android:id="@+id/white_face"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".75"
-            android:scaleY=".75"
-            app:layout_constraintEnd_toStartOf="@+id/white_face4"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/white_face5"
-            app:srcCompat="@drawable/dummy_face" />
+        <!--<ImageView-->
+            <!--android:id="@+id/white_face"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:scaleX=".75"-->
+            <!--android:scaleY=".75"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/white_face4"-->
+            <!--app:layout_constraintHorizontal_bias="0.5"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/white_face5"-->
+            <!--app:srcCompat="@drawable/dummy_face" />-->
 
-        <ImageView
-            android:id="@+id/check4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="284dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_check_circle_black_24dp"
-            app:layout_constraintEnd_toEndOf="@+id/white_face"
-            app:layout_constraintHorizontal_bias="0.375"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/white_face" />
+        <!--<ImageView-->
+            <!--android:id="@+id/check4"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="284dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:src="@drawable/ic_check_circle_black_24dp"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/white_face"-->
+            <!--app:layout_constraintHorizontal_bias="0.375"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/constraintLayout2"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/white_face" />-->
 
-        <ImageView
-            android:id="@+id/white_face4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX=".75"
-            android:scaleY=".75"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/white_face"
-            app:srcCompat="@drawable/dummy_face" />
+        <!--<ImageView-->
+            <!--android:id="@+id/white_face4"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:scaleX=".75"-->
+            <!--android:scaleY=".75"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.5"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/white_face"-->
+            <!--app:srcCompat="@drawable/dummy_face" />-->
 
-        <ImageView
-            android:id="@+id/check5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_check_circle_black_24dp"
-            app:layout_constraintEnd_toEndOf="@+id/white_face4"
-            app:layout_constraintHorizontal_bias="0.769"
-            app:layout_constraintStart_toStartOf="@+id/white_face4"
-            app:layout_constraintTop_toBottomOf="@+id/white_face4" />
-    </android.support.constraint.ConstraintLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/check5"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_check_circle_black_24dp"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/white_face4"-->
+            <!--app:layout_constraintHorizontal_bias="0.769"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/white_face4"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/white_face4" />-->
+    <!--</android.support.constraint.ConstraintLayout>-->
 
 </android.support.constraint.ConstraintLayout>
