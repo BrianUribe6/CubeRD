@@ -539,6 +539,73 @@
                 android:background="@color/grayLight" />
         </GridLayout>
 
+        <Button
+            android:id="@+id/pick_white_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/square_white"
+            app:layout_constraintBottom_toTopOf="@+id/pick_green_btn"
+            app:layout_constraintEnd_toStartOf="@+id/pick_yellow_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/white_face"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/pick_yellow_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/square_yellow"
+            app:layout_constraintBottom_toTopOf="@+id/pick_orange_btn"
+            app:layout_constraintEnd_toStartOf="@+id/pick_blue_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pick_white_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/pick_blue_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/square_blue"
+            app:layout_constraintBottom_toTopOf="@+id/pick_red_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pick_yellow_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/pick_green_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/square_green"
+            app:layout_constraintBottom_toTopOf="@+id/red_face"
+            app:layout_constraintEnd_toStartOf="@+id/pick_orange_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/white_face"
+            app:layout_constraintTop_toBottomOf="@+id/pick_white_btn" />
+
+        <Button
+            android:id="@+id/pick_orange_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/square_orange"
+            app:layout_constraintBottom_toTopOf="@+id/red_face"
+            app:layout_constraintEnd_toStartOf="@+id/pick_red_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pick_green_btn"
+            app:layout_constraintTop_toBottomOf="@+id/pick_yellow_btn" />
+
+        <Button
+            android:id="@+id/pick_red_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/square_red"
+            app:layout_constraintBottom_toTopOf="@+id/blue_face"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pick_orange_btn"
+            app:layout_constraintTop_toBottomOf="@+id/pick_blue_btn" />
+
+
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
