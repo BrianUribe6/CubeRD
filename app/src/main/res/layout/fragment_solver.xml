@@ -627,15 +627,12 @@
             android:layout_height="48dp"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:src="@drawable/ic_refresh_black_24dp" />
-        <!--<Button-->
-        <!--android:id="@+id/btn_Reset"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-        <!--android:background="@drawable/button_bg_rounded_corners"-->
-        <!--android:drawableEnd="@drawable/ic_refresh_black_24dp"-->
-        <!--android:text="@string/reset_btn"-->
-        <!--android:textColor="@color/colorAccent" />-->
+
+        <ImageView
+            android:id="@+id/solve_scramble_img"
+            android:layout_width="40dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_lightbulb_outline_black_24dp"/>
 
         <Button
             android:id="@+id/btn_solver"
@@ -702,7 +699,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/solution_txtview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

@@ -5,6 +5,7 @@
     <string name="mov_seq">R2</string>
     <string name="timer_tab">Timer</string>
     <string name="solver_tab">Solver</string>
+    <!--Timer tab -->
     <string name="time">00.00</string>
     <string name="scramble">L  B2 R  L2 U2 F2 D\' R\' F2 U2 F  R2 U2 L2 D2 L2 B  R2 L2</string>
     <string name="ao3_title">Ao3</string>
@@ -19,4 +20,14 @@
     <string name="best_time">00:00:00</string>
     <string name="best_ao3_time">00:00:00</string>
     <string name="best_ao5_time">00:00:00</string>
+    <!--Solve from scramble Dialog-->
+    <string name="dialog_title">Solve from Scramble</string>
+    <string name="scramble_hint">Type the scramble you want to solve</string>
+    <string name="R_suggestion">R</string>
+    <string name="L_suggestion">L</string>
+    <string name="U_suggestion">U</string>
+    <string name="D_suggestion">D</string>
+    <string name="F_suggestion">F</string>
+    <string name="B_suggestion">B</string>
+    <string name="prime_suggestion">\'</string>
 </resources>
