@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/solve_scramble_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/scramble_hint"
+        android:ems="10"
+        android:inputType="textNoSuggestions"/>
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center">-->
+        <!--<Button-->
+            <!--android:id="@+id/U_suggestion"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/U_suggestion"/>-->
+        <!--<Button-->
+            <!--android:id="@+id/R_suggestion"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/R_suggestion"/>-->
+        <!--<Button-->
+            <!--android:id="@+id/F_suggestion"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/F_suggestion"/>-->
+        <!--<Button-->
+            <!--android:id="@+id/D_suggestion"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/D_suggestion"/>-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center">-->
+        <!--<Button-->
+            <!--android:id="@+id/L_suggestion"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/L_suggestion"/>-->
+        <!--<Button-->
+            <!--android:id="@+id/B_suggestion"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/B_suggestion"/>-->
+        <!--<Button-->
+            <!--android:id="@+id/prime_suggestion"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/prime_suggestion" />-->
+        <!--<Button-->
+            <!--android:id="@+id/two_suggestion"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="2"/>-->
+    <!--</LinearLayout>-->
+
+</LinearLayout>
