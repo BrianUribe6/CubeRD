@@ -22,13 +22,23 @@ import com.tst.cuberd.R;
 import com.tst.cuberd.min2phase.src.Search;
 import com.tst.cuberd.min2phase.src.Tools;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 
 public class SolverFragment extends Fragment implements View.OnClickListener {
 
     Context mContext;
-    int currPieceId = R.id.preview_U0;               //Default pieceID is the first piece of the cube
     private static final String TAG = "SolverFragment";
-    StringBuilder cubeState = new StringBuilder("UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB");
+
+    final String DEFAULT_STATE = "****U********R********F********D********L********B****";
+    final String SOLVED_STATE = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB";
+
+    int currPieceId = R.id.preview_U0;               //Default pieceID is the first piece of the cube
+    StringBuilder cubeState = new StringBuilder(DEFAULT_STATE);
     TextView solutionTxt;
     TextView[] piecesHolder = new TextView[54];     //to store the string representation of a piece given an index
 
@@ -51,11 +61,13 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
         Button pickGreenBtn = view.findViewById(R.id.pick_green_btn);
         Button pickOrangeBtn = view.findViewById(R.id.pick_orange_btn);
         Button pickRedBtn = view.findViewById(R.id.pick_red_btn);
+        ImageView btnReset = view.findViewById(R.id.btn_reset);
         ImageView solveScramble = view.findViewById(R.id.solve_scramble_img);
         solutionTxt = view.findViewById(R.id.solution_txtview);
 
         btnCamera.setOnClickListener(this);
         btnSolver.setOnClickListener(this);
+        btnReset.setOnClickListener(this);
         pickWhiteBtn.setOnClickListener(this);
         pickYellowBtn.setOnClickListener(this);
         pickBlueBtn.setOnClickListener(this);
@@ -104,9 +116,15 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
             case R.id.solve_scramble_img:
                 showSolveScrambleDialog();
                 break;
-
+            case R.id.btn_reset:
+                resetCube();
+                break;
             case R.id.btn_solver:
                 String state = cubeState.toString();
+                    if(state.contains("*")){
+                        Snackbar.make(view, "There are missing pieces", Snackbar.LENGTH_LONG).show();
+                        break;
+                    }
                     String solution = solveCube(state);
                     if (solution.contains("Error")) {
                         //Error messages are enumerated like ERROR 1, ERROR 2,etc
@@ -115,39 +133,53 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
                         showError(errorCode, view);
                         solution = "Invalid input";
                     }else {
-                        //TODO check if the user has finished the template before setting the cube to a solved state
-                        setCubeState(new StringBuilder("UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB"));
+                        setCubeState(new StringBuilder(SOLVED_STATE));
                     }
                     solutionTxt.setText(solution);
                 break;
         }
     }
 
+    private void resetCube() {
+        cubeState = new StringBuilder(DEFAULT_STATE);
+        Integer[] indices = {4, 13, 22,31, 40, 49};
+        Set<Integer> centerPiecesIndex= new HashSet<>(Arrays.asList(indices));
+
+        for (int i = 0; i < piecesHolder.length; i++) {
+            if (centerPiecesIndex.contains(i)){
+                //Skip center pieces
+                continue;
+            }
+
+            piecesHolder[i].setBackgroundResource(R.drawable.square_grey);
+        }
+    }
+
     private void showError(char errorCode, View view) {
         switch (errorCode) {
             case '1':
-                Snackbar.make(view, "Invalid Cube: There are not exactly nine facelets of each color!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.error_code_1, Snackbar.LENGTH_LONG).show();
                 break;
             case '2':
-                Snackbar.make(view, "Invalid Cube: Not all 12 edges exist exactly once!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.error_code_2, Snackbar.LENGTH_LONG).show();
                 break;
             case '3':
-                Snackbar.make(view, "Flip error: One edge has to be flipped!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.error_code_3, Snackbar.LENGTH_LONG).show();
                 break;
             case '4':
-                Snackbar.make(view, "Invalid Cube: Not all 8 corners exist exactly once!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.error_code_4, Snackbar.LENGTH_LONG).show();
                 break;
             case '5':
-                Snackbar.make(view, "Twist error: One corner has to be twisted!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.error_code_5, Snackbar.LENGTH_LONG).show();
                 break;
             case '6':
-                Snackbar.make(view, "Parity error: Two corners or two edges have to be exchanged!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.error_code_6, Snackbar.LENGTH_LONG).show();
                 break;
             case '7':
-                Snackbar.make(view, "No solution exists for the given maximum move number!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.error_code_7, Snackbar.LENGTH_LONG).show();
                 break;
             case '8':
-                Snackbar.make(view, "Timeout, no solution found within given maximum time!", Snackbar.LENGTH_LONG);
+                Snackbar.make(view, R.string.error_code_8, Snackbar.LENGTH_LONG).show();
                 break;
         }
     }
@@ -157,8 +189,6 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
         String[] piecesNames = {"U", "R", "F", "D", "L", "B"};
 
         int idx = 0;
-        boolean isSorted = false;
-        int prev = 0;
         for (String pieceName : piecesNames) {
             for (int j = 0; j < 9; j++) {
                 String name = "preview_" + pieceName + j;
