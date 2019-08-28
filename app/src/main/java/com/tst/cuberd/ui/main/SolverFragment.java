@@ -23,6 +23,7 @@ import com.tst.cuberd.min2phase.src.Search;
 import com.tst.cuberd.min2phase.src.Tools;
 
 
+
 public class SolverFragment extends Fragment implements View.OnClickListener {
 
     Context mContext;
@@ -124,32 +125,20 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     }
 
     private void showError(char errorCode, View view) {
-        switch (errorCode) {
-            case '1':
-                Snackbar.make(view, "Invalid Cube: There are not exactly nine facelets of each color!", Snackbar.LENGTH_LONG).show();
-                break;
-            case '2':
-                Snackbar.make(view, "Invalid Cube: Not all 12 edges exist exactly once!", Snackbar.LENGTH_LONG).show();
-                break;
-            case '3':
-                Snackbar.make(view, "Flip error: One edge has to be flipped!", Snackbar.LENGTH_LONG).show();
-                break;
-            case '4':
-                Snackbar.make(view, "Invalid Cube: Not all 8 corners exist exactly once!", Snackbar.LENGTH_LONG).show();
-                break;
-            case '5':
-                Snackbar.make(view, "Twist error: One corner has to be twisted!", Snackbar.LENGTH_LONG).show();
-                break;
-            case '6':
-                Snackbar.make(view, "Parity error: Two corners or two edges have to be exchanged!", Snackbar.LENGTH_LONG).show();
-                break;
-            case '7':
-                Snackbar.make(view, "No solution exists for the given maximum move number!", Snackbar.LENGTH_LONG).show();
-                break;
-            case '8':
-                Snackbar.make(view, "Timeout, no solution found within given maximum time!", Snackbar.LENGTH_LONG);
-                break;
-        }
+        //convert char in int
+        int idxError = (int)errorCode;
+        String[] errorList = {
+                "Invalid Cube: There are not exactly nine facelets of each color!", // 1
+                "Invalid Cube: Not all 12 edges exist exactly once!",
+                "Flip error: One edge has to be flipped!",
+                "Invalid Cube: Not all 8 corners exist exactly once!",
+                "Twist error: One corner has to be twisted!",
+                "Parity error: Two corners or two edges have to be exchanged!",
+                "No solution exists for the given maximum move number!",
+                "Timeout, no solution found within given maximum time!" // 8
+        };
+        // errorCode - 1 by index array
+        Snackbar.make(view, errorList[idxError -1],Snackbar.LENGTH_LONG).show();
     }
 
     //initializes onCLickListener method for every piece of the cube

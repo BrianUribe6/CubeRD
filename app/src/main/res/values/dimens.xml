@@ -6,4 +6,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="cube_piece_size">20dp</dimen>
+    <dimen name="border_piece">2dp</dimen>
+    <dimen name="picker_btn_size">22dp</dimen>
+
 </resources>

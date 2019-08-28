@@ -12,11 +12,11 @@
         android:id="@+id/cube_preview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,6 +27,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@drawable/face_bg"
             android:orientation="vertical"
             android:useDefaultMargins="true"
             app:layout_constraintEnd_toEndOf="@+id/green_face"
@@ -34,20 +35,21 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/preview_U0"
-                android:layout_width="@dimen/cube_piece_size"
-                android:layout_height="@dimen/cube_piece_size"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:background="@color/grayLight" />
-
-            <TextView
                 android:id="@+id/preview_U1"
                 android:layout_width="@dimen/cube_piece_size"
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
+
+            <TextView
+                android:id="@+id/preview_U0"
+                android:layout_width="@dimen/cube_piece_size"
+                android:layout_height="@dimen/cube_piece_size"
+                android:layout_row="0"
+                android:layout_column="0"
+
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_U2"
@@ -55,7 +57,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_U3"
@@ -63,7 +65,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_U4"
@@ -71,7 +73,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:background="@color/white" />
+                android:background="@drawable/square_white" />
 
             <TextView
                 android:id="@+id/preview_U5"
@@ -79,7 +81,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_U6"
@@ -87,7 +89,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_U7"
@@ -95,7 +97,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_U8"
@@ -103,13 +105,14 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
         </GridLayout>
 
         <GridLayout
             android:id="@+id/green_face"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/face_bg"
             android:orientation="vertical"
             android:useDefaultMargins="true"
             app:layout_constraintBottom_toTopOf="@+id/yellow_face"
@@ -124,7 +127,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_F1"
@@ -132,7 +135,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_F2"
@@ -140,7 +143,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_F3"
@@ -148,7 +151,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_F4"
@@ -156,7 +159,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:background="@color/green" />
+                android:background="@drawable/square_green" />
 
             <TextView
                 android:id="@+id/preview_F5"
@@ -164,7 +167,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_F6"
@@ -172,7 +175,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_F7"
@@ -180,7 +183,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_F8"
@@ -188,15 +191,16 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
         </GridLayout>
 
         <GridLayout
             android:id="@+id/orange_face"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="100dp"
             android:layout_marginBottom="94dp"
+            android:background="@drawable/face_bg"
             android:orientation="vertical"
             android:useDefaultMargins="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -211,7 +215,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_L1"
@@ -219,7 +223,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_L2"
@@ -227,7 +231,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_L3"
@@ -235,7 +239,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_L4"
@@ -243,7 +247,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:background="@color/orange" />
+                android:background="@drawable/square_orange" />
 
             <TextView
                 android:id="@+id/preview_L5"
@@ -251,7 +255,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_L6"
@@ -259,7 +263,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_L7"
@@ -267,7 +271,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_L8"
@@ -275,15 +279,16 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
         </GridLayout>
 
         <GridLayout
             android:id="@+id/red_face"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="100dp"
             android:layout_marginBottom="94dp"
+            android:background="@drawable/face_bg"
             android:orientation="vertical"
             android:useDefaultMargins="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -298,7 +303,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_R1"
@@ -306,7 +311,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_R2"
@@ -314,7 +319,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_R3"
@@ -322,7 +327,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_R4"
@@ -330,7 +335,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:background="@color/red" />
+                android:background="@drawable/square_red" />
 
             <TextView
                 android:id="@+id/preview_R5"
@@ -338,7 +343,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_R6"
@@ -346,7 +351,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_R7"
@@ -354,7 +359,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_R8"
@@ -362,15 +367,16 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
         </GridLayout>
 
         <GridLayout
             android:id="@+id/blue_face"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="100dp"
             android:layout_marginBottom="94dp"
+            android:background="@drawable/face_bg"
             android:orientation="vertical"
             android:useDefaultMargins="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -385,7 +391,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_B1"
@@ -393,7 +399,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_B2"
@@ -401,7 +407,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_B3"
@@ -409,7 +415,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_B4"
@@ -417,7 +423,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:background="@color/blue" />
+                android:background="@drawable/square_blue" />
 
             <TextView
                 android:id="@+id/preview_B5"
@@ -425,7 +431,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_B6"
@@ -433,7 +439,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_B7"
@@ -441,7 +447,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_B8"
@@ -449,7 +455,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
         </GridLayout>
 
         <GridLayout
@@ -458,6 +464,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@drawable/face_bg"
             android:orientation="vertical"
             android:useDefaultMargins="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -472,7 +479,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_D1"
@@ -480,7 +487,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_D2"
@@ -488,7 +495,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_D3"
@@ -496,7 +503,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_D4"
@@ -504,7 +511,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:background="@color/yellow" />
+                android:background="@drawable/square_yellow" />
 
             <TextView
                 android:id="@+id/preview_D5"
@@ -512,7 +519,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_D6"
@@ -520,7 +527,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_D7"
@@ -528,34 +535,46 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="2"
                 android:layout_column="1"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_D8"
                 android:layout_width="@dimen/cube_piece_size"
-                android:layout_height="@dimen/cube_piece_size"
+                android:layout_height="wrap_content"
                 android:layout_row="2"
                 android:layout_column="2"
-                android:background="@color/grayLight" />
+                android:background="@drawable/square_gray" />
         </GridLayout>
+
+        <TextView
+            android:id="@+id/title_colorPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/title_colorPicker"
+            app:layout_constraintBottom_toTopOf="@+id/pick_blue_btn"
+            app:layout_constraintStart_toEndOf="@+id/white_face"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/pick_white_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/square_white"
-            app:layout_constraintBottom_toTopOf="@+id/pick_green_btn"
+            android:layout_width="@dimen/picker_btn_size"
+            android:layout_height="@dimen/picker_btn_size"
+            android:background="@drawable/circle_white"
+            app:layout_constraintBottom_toTopOf="@+id/red_face"
             app:layout_constraintEnd_toStartOf="@+id/pick_yellow_btn"
             app:layout_constraintHorizontal_bias="0.5"
+
             app:layout_constraintStart_toEndOf="@+id/white_face"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/pick_yellow_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/square_yellow"
-            app:layout_constraintBottom_toTopOf="@+id/pick_orange_btn"
+            android:layout_width="@dimen/picker_btn_size"
+            android:layout_height="@dimen/picker_btn_size"
+            android:background="@drawable/circle_yellow"
+            app:layout_constraintBottom_toTopOf="@+id/red_face"
             app:layout_constraintEnd_toStartOf="@+id/pick_blue_btn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/pick_white_btn"
@@ -563,47 +582,50 @@
 
         <Button
             android:id="@+id/pick_blue_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/square_blue"
-            app:layout_constraintBottom_toTopOf="@+id/pick_red_btn"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="@dimen/picker_btn_size"
+            android:layout_height="@dimen/picker_btn_size"
+            android:background="@drawable/circle_blue"
+            app:layout_constraintBottom_toTopOf="@+id/red_face"
+            app:layout_constraintEnd_toStartOf="@+id/pick_green_btn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/pick_yellow_btn"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/pick_green_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/square_green"
+            android:layout_width="@dimen/picker_btn_size"
+            android:layout_height="@dimen/picker_btn_size"
+            android:background="@drawable/circle_green"
             app:layout_constraintBottom_toTopOf="@+id/red_face"
             app:layout_constraintEnd_toStartOf="@+id/pick_orange_btn"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/white_face"
-            app:layout_constraintTop_toBottomOf="@+id/pick_white_btn" />
+            app:layout_constraintStart_toEndOf="@+id/pick_blue_btn"
+            app:layout_constraintTop_toBottomOf="@id/blue_face"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/pick_orange_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/square_orange"
+            android:layout_width="@dimen/picker_btn_size"
+            android:layout_height="@dimen/picker_btn_size"
+            android:background="@drawable/circle_orange"
             app:layout_constraintBottom_toTopOf="@+id/red_face"
             app:layout_constraintEnd_toStartOf="@+id/pick_red_btn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/pick_green_btn"
-            app:layout_constraintTop_toBottomOf="@+id/pick_yellow_btn" />
+            app:layout_constraintTop_toBottomOf="@id/blue_face"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/pick_red_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/square_red"
-            app:layout_constraintBottom_toTopOf="@+id/blue_face"
+            android:layout_width="@dimen/picker_btn_size"
+            android:layout_height="@dimen/picker_btn_size"
+            android:background="@drawable/circle_red"
+            app:layout_constraintBottom_toTopOf="@+id/red_face"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/pick_orange_btn"
-            app:layout_constraintTop_toBottomOf="@+id/pick_blue_btn" />
+            app:layout_constraintTop_toBottomOf="@id/blue_face"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>
@@ -632,7 +654,8 @@
             android:id="@+id/solve_scramble_img"
             android:layout_width="40dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_lightbulb_outline_black_24dp"/>
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_scramble"/>
 
         <Button
             android:id="@+id/btn_solver"

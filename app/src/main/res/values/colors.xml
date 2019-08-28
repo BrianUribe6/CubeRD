@@ -14,4 +14,6 @@
     <color name="blue">#3F51B5</color>
     <color name="orange">#FF9015</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="grayBorder">#D9D9D9</color>
+
 </resources>
