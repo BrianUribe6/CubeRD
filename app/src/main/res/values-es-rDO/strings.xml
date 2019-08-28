@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CubeRD</string>
+    <string name="best_title">MEJOR</string>
+    <string name="dialog_title">Resolver desde scramble</string>
+    <string name="error_code_1">Cubo Invalido: No hay exactamente 9 pegatinas de cada color!</string>
+    <string name="error_code_3">Error de volteo: Una arista debe de ser volteada!</string>
+    <string name="error_code_2">Cubo Invalido:  No hay exactamente 12 aristas!</string>
+    <string name="error_code_4">Cubo Invalido: No hay exactamente 8 esquinas!</string>
+    <string name="error_code_5">Error de giro: Una esquina debe ser girada!</string>
+    <string name="solver_tab">Solucionador</string>
+    <string name="timer_tab">Temporizador</string>
+    <string name="mov_title">Movimientos</string>
+    <string name="error_code_6">Error de paridad: Dos esquinas o dos aristas necesitan ser intercambiadas!</string>
+    <string name="error_code_7">No existe solución para el numero máximo de movimiento establecido</string>
+    <string name="error_code_8">Timeout: No se encontró una solución dentro del tiempo máximo establecido!</string>
+    <string name="dialog_scramble_hint">Escriba el scramble que desea resolver</string>
+    <string name="reset_btn">Reiniciar</string>
+    <string name="avg_title">Promedio</string>
+    <string name="action_clear_history">Limpiar historial</string>
+    <string name="action_about">Acerca de</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="title_clear_history">Eliminar Historial</string>
+</resources>
