@@ -31,16 +31,17 @@ import java.util.Set;
 
 public class SolverFragment extends Fragment implements View.OnClickListener {
 
-    Context mContext;
+    private Context mContext;
+    private TextView solutionTxt;
+
     private static final String TAG = "SolverFragment";
 
-    final String DEFAULT_STATE = "****U********R********F********D********L********B****";
-    final String SOLVED_STATE = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB";
+    private final String DEFAULT_STATE = "****U********R********F********D********L********B****";
+    private final String SOLVED_STATE = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB";
 
-    int currPieceId = R.id.preview_U0;               //Default pieceID is the first piece of the cube
-    StringBuilder cubeState = new StringBuilder(DEFAULT_STATE);
-    TextView solutionTxt;
-    TextView[] piecesHolder = new TextView[54];     //to store the string representation of a piece given an index
+    private int currPieceId = R.id.preview_U0;               //Default pieceID is the first piece of the cube
+    private StringBuilder cubeState = new StringBuilder(DEFAULT_STATE);
+    private TextView[] piecesHolder = new TextView[54];     //to store the string representation of a piece given an index
 
     @Override
     public void onAttach(Context context) {
@@ -53,6 +54,7 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_solver, container, false);
+
         FloatingActionButton btnCamera = view.findViewById(R.id.fab_camera);
         Button btnSolver = view.findViewById(R.id.btn_solver);
         Button pickWhiteBtn = view.findViewById(R.id.pick_white_btn);
