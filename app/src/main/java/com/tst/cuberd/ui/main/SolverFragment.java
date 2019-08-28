@@ -150,40 +150,26 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
                 //Skip center pieces
                 continue;
             }
-
-            piecesHolder[i].setBackgroundResource(R.drawable.square_grey);
+            piecesHolder[i].setBackgroundResource(R.drawable.square_gray);
         }
     }
 
     private void showError(char errorCode, View view) {
-        switch (errorCode) {
-            case '1':
-                Snackbar.make(view, R.string.error_code_1, Snackbar.LENGTH_LONG).show();
-                break;
-            case '2':
-                Snackbar.make(view, R.string.error_code_2, Snackbar.LENGTH_LONG).show();
-                break;
-            case '3':
-                Snackbar.make(view, R.string.error_code_3, Snackbar.LENGTH_LONG).show();
-                break;
-            case '4':
-                Snackbar.make(view, R.string.error_code_4, Snackbar.LENGTH_LONG).show();
-                break;
-            case '5':
-                Snackbar.make(view, R.string.error_code_5, Snackbar.LENGTH_LONG).show();
-                break;
-            case '6':
-                Snackbar.make(view, R.string.error_code_6, Snackbar.LENGTH_LONG).show();
-                break;
-            case '7':
-                Snackbar.make(view, R.string.error_code_7, Snackbar.LENGTH_LONG).show();
-                break;
-            case '8':
-                Snackbar.make(view, R.string.error_code_8, Snackbar.LENGTH_LONG).show();
-                break;
-        }
+        //convert char in int
+        int idxError = (int)errorCode;
+        int[] errorList = {
+                R.string.error_code_1,
+                R.string.error_code_2,
+                R.string.error_code_3,
+                R.string.error_code_4,
+                R.string.error_code_5,
+                R.string.error_code_6,
+                R.string.error_code_7,
+                R.string.error_code_8
+        };
+        // errorCode - 1 by index array
+        Snackbar.make(view, errorList[idxError -1],Snackbar.LENGTH_LONG).show();
     }
-
     //initializes onCLickListener method for every piece of the cube
     private void initPieces(View view) {
         String[] piecesNames = {"U", "R", "F", "D", "L", "B"};

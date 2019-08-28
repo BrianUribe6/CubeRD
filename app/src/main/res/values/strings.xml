@@ -30,4 +30,14 @@
     <string name="F_suggestion">F</string>
     <string name="B_suggestion">B</string>
     <string name="prime_suggestion">\'</string>
+    <!--Errors-->
+    <string name="error_code_1">Invalid Cube: There are not exactly nine facelets of each color!</string>
+    <string name="error_code_2">Invalid Cube: Not all 12 edges exist exactly once!</string>
+    <string name="error_code_3">Flip error: One edge has to be flipped!</string>
+    <string name="error_code_4">Invalid Cube: Not all 8 corners exist exactly once!</string>
+    <string name="error_code_5">Twist error: One corner has to be twisted!</string>
+    <string name="error_code_6">Parity error: Two corners or two edges have to be exchanged!</string>
+    <string name="error_code_7">No solution exists for the given maximum move number!</string>
+    <string name="error_code_8">Timeout, no solution found within given maximum time!</string>
+    <string name="title_color_picker">Choose a color</string>
 </resources>

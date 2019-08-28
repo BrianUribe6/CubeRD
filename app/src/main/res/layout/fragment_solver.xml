@@ -552,7 +552,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:text="@string/title_colorPicker"
+            android:text="@string/title_color_picker"
             app:layout_constraintBottom_toTopOf="@+id/pick_blue_btn"
             app:layout_constraintStart_toEndOf="@+id/white_face"
             app:layout_constraintTop_toTopOf="parent" />
@@ -645,6 +645,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cube_preview">
 
         <ImageView
+            android:id="@+id/btn_reset"
             android:layout_width="40dp"
             android:layout_height="48dp"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
