@@ -15,24 +15,22 @@ public class HistoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     private List<SolveEntry> mData;
-    private HistoryDB historyDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         Toolbar toolbar = findViewById(R.id.toolbar_history);
-        setSupportActionBar(toolbar);
-        historyDB = new HistoryDB();
-        mData = historyDB.loadData(this);
+        setSupportActionBar(toolbar);                //Loading action bar
+        mData = HistoryDB.loadData(this);   //Loading solve history data
         initRecyclerView();
     }
+
     private void initRecyclerView(){
         recyclerView = findViewById(R.id.recycler_history);
 
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new HistoryAdapter(this, mData);
@@ -57,8 +55,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void clearHistory() {
         mData.clear();
-        historyDB.saveData(this, mData);
+        HistoryDB.saveData(this, mData);
         mAdapter.notifyDataSetChanged();
     }
-
 }

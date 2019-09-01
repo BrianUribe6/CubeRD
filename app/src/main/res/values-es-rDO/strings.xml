@@ -17,8 +17,10 @@
     <string name="dialog_scramble_hint">Escriba el scramble que desea resolver</string>
     <string name="reset_btn">Reiniciar</string>
     <string name="avg_title">Promedio</string>
-    <string name="action_clear_history">Limpiar historial</string>
     <string name="action_about">Acerca de</string>
     <string name="action_settings">Configuraciones</string>
     <string name="title_clear_history">Eliminar Historial</string>
+    <string name="title_select_all">Seleccionar Todo</string>
+    <string name="title_share">Compartir</string>
+    <string name="action_mode_select">seleccionado(s)</string>
 </resources>

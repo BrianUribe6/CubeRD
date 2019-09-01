@@ -3,11 +3,13 @@ package com.tst.cuberd.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +24,11 @@ import com.tst.cuberd.SolveEntry;
 import com.tst.cuberd.min2phase.src.Search;
 import com.tst.cuberd.min2phase.src.Tools;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -35,12 +40,14 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
     private TextView scrambleText;
     private TextView[] piecesHolder = new TextView[54];
     private ImageView startStop;
-    private Chronometer timer;
+    private TextView timer;
 
     private boolean timerRunning = false;
     private String randomCube;
     private List<SolveEntry> mData;
-    private HistoryDB historyDB;
+    private long init, now, paused, time;
+    private Handler handler;
+    private Runnable clockTick;
 
     @Override
     public void onAttach(Context context) {
@@ -49,10 +56,17 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        paused = System.currentTimeMillis();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         //Reloading DB with the changes made on the History Activity Eg. solve deleted or list cleared
-        mData = historyDB.loadData(mContext);
+        mData = HistoryDB.loadData(mContext);
+        init += System.currentTimeMillis() - paused;
     }
 
     @Nullable
@@ -64,12 +78,24 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
         startStop = view.findViewById(R.id.start_stop);
         FloatingActionButton historyFab = view.findViewById(R.id.history_fab);
 
+        handler = new Handler();
+        clockTick = new Runnable() {
+            @Override
+            public void run() {
+                if (timerRunning) {
+                    now = System.currentTimeMillis();
+                    time = now - init;
+                    timer.setText(formatTime(time));
+                    handler.postDelayed(this, 30);
+                }
+            }
+        };
+
         startStop.setOnClickListener(this);
         historyFab.setOnClickListener(this);
 
         //Loading History Data
-        historyDB = new HistoryDB();
-        mData = historyDB.loadData(mContext);
+        mData = HistoryDB.loadData(mContext);
         //Initializing scramble
         String scramble = getScramble();
         scrambleText.setText(scramble);
@@ -80,32 +106,22 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    private String formatTime(long time) {
+        boolean minutePassed = (time / 60000 >= 1);      // is time greater than 1 minute?
+        SimpleDateFormat simpleDateFormat = minutePassed ? new SimpleDateFormat("mm:ss.SS", Locale.US) :
+                new SimpleDateFormat("ss.SS", Locale.US);
+
+        return simpleDateFormat.format(new Date(time));
+    }
+
     @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.start_stop:
-                if(!timerRunning) {
-                    //TODO make this its own method
-                    timerRunning = true;
-                    timer.setBase(SystemClock.elapsedRealtime());
-//                timer.setFormat("MM:SS");
-                    timer.start();
-                    startStop.setImageResource(R.drawable.stop_button);
-
-                }else{
-                    //TODO make this its own method
-                    timerRunning = false;
-                    timer.stop();
-                    startStop.setImageResource(R.drawable.ic_play_circle_filled_black_24dp);
-                    //Get new scramble and preview
-                    String scramble = getScramble();
-                    scrambleText.setText(scramble);
-                    setPreviewState(randomCube);
-                    //TODO Recompute statistics
-                    //Save Data
-                    //TODO format index with leading zeroes and scramble shortened with ellipsis
-                    mData.add(new SolveEntry(mData.size(), scramble, timer.getText().toString()));
-                    historyDB.saveData(mContext, mData);
+                if (!timerRunning) {
+                    startTimer();
+                } else {
+                    stopTimer();
                 }
                 break;
             case R.id.history_fab:
@@ -113,6 +129,27 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void stopTimer() {
+        timerRunning = false;
+        startStop.setImageResource(R.drawable.ic_play_circle_filled_black_24dp);
+        //Get new scramble and preview
+        String scramble = getScramble();
+        scrambleText.setText(scramble);
+        setPreviewState(randomCube);
+        //TODO Recompute statistics
+        //Save Data
+        //TODO format index with leading zeroes and scramble shortened with ellipsis
+        mData.add(new SolveEntry(mData.size(), scramble, formatTime(time)));
+        HistoryDB.saveData(mContext, mData);
+    }
+
+    private void startTimer() {
+        init = System.currentTimeMillis();
+        handler.post(clockTick);
+        timerRunning = true;
+        startStop.setImageResource(R.drawable.stop_button);
     }
 
     private void setPreviewState(String cubeState) {
@@ -147,7 +184,9 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
     private String getScramble(){
         //1. Getting random cube state
         randomCube = Tools.randomCube();
-        int noOfMoves = new Random().nextInt(5) + 21;
+        final int MIN_MOVES = 21;
+        final int MAX_MOVES = 26;
+        int noOfMoves = new Random().nextInt(MAX_MOVES - MIN_MOVES) + MIN_MOVES;
 
         //2. Solving Random Cube
         String solvedCube = new Search().solution(randomCube, noOfMoves, 100000000, 0, 0);

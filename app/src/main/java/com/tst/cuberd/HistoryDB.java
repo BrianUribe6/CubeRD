@@ -12,7 +12,7 @@ import java.util.List;
 
 public class HistoryDB {
 
-    public List<SolveEntry> loadData(Context mContext){
+    public static List<SolveEntry> loadData(Context mContext) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(
                 mContext.getString(R.string.PREFERENCE_HISTORY_DB), Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -25,7 +25,8 @@ public class HistoryDB {
         }
         return mData;
     }
-    public void saveData(Context mContext, List<SolveEntry> mData) {
+
+    public static void saveData(Context mContext, List<SolveEntry> mData) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(
                 mContext.getString(R.string.PREFERENCE_HISTORY_DB), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
