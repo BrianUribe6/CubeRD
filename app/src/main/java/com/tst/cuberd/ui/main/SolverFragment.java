@@ -3,6 +3,7 @@ package com.tst.cuberd.ui.main;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,8 @@ import com.tst.cuberd.R;
 import com.tst.cuberd.min2phase.src.Search;
 import com.tst.cuberd.min2phase.src.Tools;
 
+import org.opencv.core.Mat;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,6 +41,9 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     final String SOLVED_STATE = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB";
 
     int currPieceId = R.id.preview_U0;               //Default pieceID is the first piece of the cube
+    Drawable prevPieceBg;                            //Default PieceBg
+    boolean colorChange = false;                     //Default state
+    boolean firstU0 = true;                          //If first piece click is U0
     StringBuilder cubeState = new StringBuilder(DEFAULT_STATE);
     TextView solutionTxt;
     TextView[] piecesHolder = new TextView[54];     //to store the string representation of a piece given an index
@@ -92,26 +98,32 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
             case R.id.pick_white_btn:
                 currPiece.setBackgroundResource(R.drawable.square_white);
                 cubeState.setCharAt(index, 'U');
+                colorChange = true;
                 break;
             case R.id.pick_yellow_btn:
                 currPiece.setBackgroundResource(R.drawable.square_yellow);
                 cubeState.setCharAt(index, 'D');
+                colorChange = true;
                 break;
             case R.id.pick_blue_btn:
                 currPiece.setBackgroundResource(R.drawable.square_blue);
                 cubeState.setCharAt(index, 'B');
+                colorChange = true;
                 break;
             case R.id.pick_green_btn:
                 currPiece.setBackgroundResource(R.drawable.square_green);
                 cubeState.setCharAt(index, 'F');
+                colorChange = true;
                 break;
             case R.id.pick_orange_btn:
                 currPiece.setBackgroundResource(R.drawable.square_orange);
                 cubeState.setCharAt(index, 'L');
+                colorChange = true;
                 break;
             case R.id.pick_red_btn:
                 currPiece.setBackgroundResource(R.drawable.square_red);
                 cubeState.setCharAt(index, 'R');
+                colorChange = true;
                 break;
             case R.id.solve_scramble_img:
                 showSolveScrambleDialog();
@@ -152,7 +164,31 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
             }
             piecesHolder[i].setBackgroundResource(R.drawable.square_gray);
         }
+        firstU0 = true;
     }
+
+   /* private void resetCube(String face) { //Reset a face
+        cubeState = new StringBuilder(DEFAULT_STATE);
+        Integer[] indices = {4, 13, 22,31, 40, 49};
+        Set<Integer> centerPiecesIndex= new HashSet<>(Arrays.asList(indices));
+        int strt = 0;
+        int end = piecesHolder.length;
+        switch (face){
+            case "U": strt = 0; end = 9; firstU0 = true; break;
+            case "R": strt = 9; end = 18; break;
+            case "F": strt = 18; end = 27; break;
+            case "L": strt = 27; end = 36; break;
+            case "D": strt = 36; end = 45; break;
+            case "B": strt = 45; end = 54; break;
+        }
+        for (int i = strt; i < end; i++) {
+            if (centerPiecesIndex.contains(i)){
+                //Skip center pieces
+                continue;
+            }
+            piecesHolder[i].setBackgroundResource(R.drawable.square_gray);
+        }
+    }*/
 
     private void showError(char errorCode, View view) {
         //convert char in int
@@ -184,11 +220,35 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
                     piecesHolder[idx].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            currPieceId = view.getId();
+                            int id = view.getId();
+
+                            if(prevPieceBg == null) // because prevPieceBg is empty
+                                prevPieceBg = view.getBackground();
+
+                            if (currPieceId != id || firstU0) { // this validation (firstU0) is in case clicked del U0 in first time
+                                firstU0 = false; // only if restart the cubestate is true again
+                                if (!colorChange) // search the previous piece and recover background
+                                {
+                                    int index = getIndex(currPieceId);       //searching for the object that contains the current id
+                                    TextView prevPiece = piecesHolder[index];
+                                    prevPiece.setBackground(prevPieceBg);
+                                }
+                                colorChange = false;
+                                prevPieceBg = view.getBackground();
+                                currPieceId = id;
+                                view.setBackgroundResource(R.drawable.square_select);
+
+                            } else {
+                                view.setBackground(prevPieceBg);
+                                currPieceId = R.id.preview_U0; // reset id
+                            }
+                           //view.getId();
                             Log.d(TAG, "onClick: id " + currPieceId);
+
                         }
                     });
-                }
+                } /*else{  // if clicked the centerpiece, reset this face
+                    resetCube("U");}*/
                 idx++;
             }
         }

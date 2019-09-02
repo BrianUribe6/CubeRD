@@ -48,8 +48,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="0"
-
-                android:background="@drawable/square_gray" />
+                android:background="@drawable/square_gray"/>
 
             <TextView
                 android:id="@+id/preview_U2"
@@ -635,6 +634,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -646,66 +646,53 @@
 
         <ImageView
             android:id="@+id/btn_reset"
-            android:layout_width="40dp"
-            android:layout_height="48dp"
+            android:layout_width="60dp"
+            android:layout_height="68dp"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:src="@drawable/ic_refresh_black_24dp" />
 
         <ImageView
             android:id="@+id/solve_scramble_img"
-            android:layout_width="40dp"
-            android:layout_height="48dp"
+            android:layout_width="60dp"
+            android:layout_height="68dp"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_scramble"/>
+            android:src="@drawable/ic_scramble" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Botonera2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/Botonera"
+        tools:layout_editor_absoluteX="0dp">
 
         <Button
             android:id="@+id/btn_solver"
-            android:layout_width="wrap_content"
+            android:layout_width="146dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_bg_rounded_corners"
             android:text="@string/solver_tab"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </LinearLayout>
+
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/Sequence"
         android:layout_width="match_parent"
-        android:layout_height="138dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Botonera"
         tools:layout_editor_absoluteX="6dp">
 
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="18dp"
-            android:text="@string/mov_title"
-            android:textColor="@color/grayDark"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="@+id/divider"
-            app:layout_constraintHorizontal_bias="0.026"
-            app:layout_constraintStart_toStartOf="@+id/divider"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="wrap_content"
-            android:layout_height="1.5dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
