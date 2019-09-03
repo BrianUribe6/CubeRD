@@ -7,14 +7,13 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor">
 
-    <!--cube representation-->
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cube_preview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +47,7 @@
                 android:layout_height="@dimen/cube_piece_size"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:background="@drawable/square_gray"/>
+                android:background="@drawable/square_gray" />
 
             <TextView
                 android:id="@+id/preview_U2"
@@ -545,89 +544,73 @@
                 android:background="@drawable/square_gray" />
         </GridLayout>
 
-        <TextView
-            android:id="@+id/title_colorPicker"
-            android:layout_width="106dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/title_color_picker"
-            app:layout_constraintBottom_toTopOf="@+id/pick_blue_btn"
-            app:layout_constraintStart_toEndOf="@+id/white_face"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/pick_white_btn"
-            android:layout_width="@dimen/picker_btn_size"
-            android:layout_height="@dimen/picker_btn_size"
-            android:background="@drawable/circle_white"
-            app:layout_constraintBottom_toTopOf="@+id/red_face"
-            app:layout_constraintEnd_toStartOf="@+id/pick_yellow_btn"
-            app:layout_constraintHorizontal_bias="0.5"
-
-            app:layout_constraintStart_toEndOf="@+id/white_face"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/pick_yellow_btn"
-            android:layout_width="@dimen/picker_btn_size"
-            android:layout_height="@dimen/picker_btn_size"
-            android:background="@drawable/circle_yellow"
-            app:layout_constraintBottom_toTopOf="@+id/red_face"
-            app:layout_constraintEnd_toStartOf="@+id/pick_blue_btn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pick_white_btn"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/pick_blue_btn"
-            android:layout_width="@dimen/picker_btn_size"
-            android:layout_height="@dimen/picker_btn_size"
-            android:background="@drawable/circle_blue"
-            app:layout_constraintBottom_toTopOf="@+id/red_face"
-            app:layout_constraintEnd_toStartOf="@+id/pick_green_btn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pick_yellow_btn"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/pick_green_btn"
-            android:layout_width="@dimen/picker_btn_size"
-            android:layout_height="@dimen/picker_btn_size"
-            android:background="@drawable/circle_green"
-            app:layout_constraintBottom_toTopOf="@+id/red_face"
-            app:layout_constraintEnd_toStartOf="@+id/pick_orange_btn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pick_blue_btn"
-            app:layout_constraintTop_toBottomOf="@id/blue_face"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/pick_orange_btn"
-            android:layout_width="@dimen/picker_btn_size"
-            android:layout_height="@dimen/picker_btn_size"
-            android:background="@drawable/circle_orange"
-            app:layout_constraintBottom_toTopOf="@+id/red_face"
-            app:layout_constraintEnd_toStartOf="@+id/pick_red_btn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pick_green_btn"
-            app:layout_constraintTop_toBottomOf="@id/blue_face"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/pick_red_btn"
-            android:layout_width="@dimen/picker_btn_size"
-            android:layout_height="@dimen/picker_btn_size"
-            android:background="@drawable/circle_red"
-            app:layout_constraintBottom_toTopOf="@+id/red_face"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pick_orange_btn"
-            app:layout_constraintTop_toBottomOf="@id/blue_face"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/color_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/backgroundColor"
+        app:cardCornerRadius="60dp"
+        android:elevation="3dp"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/pick_white_btn"
+                android:layout_width="@dimen/picker_btn_size"
+                android:layout_height="@dimen/picker_btn_size"
+                android:background="@drawable/circle_white"
+                android:layout_marginEnd="3dp"/>
+
+            <Button
+                android:id="@+id/pick_yellow_btn"
+                android:layout_width="@dimen/picker_btn_size"
+                android:layout_height="@dimen/picker_btn_size"
+                android:background="@drawable/circle_yellow" />
+
+            <Button
+                android:id="@+id/pick_blue_btn"
+                android:layout_width="@dimen/picker_btn_size"
+                android:layout_height="@dimen/picker_btn_size"
+                android:background="@drawable/circle_blue"
+                android:layout_marginStart="3dp"/>
+
+            <Button
+                android:id="@+id/pick_green_btn"
+                android:layout_width="@dimen/picker_btn_size"
+                android:layout_height="@dimen/picker_btn_size"
+                android:background="@drawable/circle_green"
+                android:layout_marginStart="3dp" />
+
+            <Button
+                android:id="@+id/pick_orange_btn"
+                android:layout_width="@dimen/picker_btn_size"
+                android:layout_height="@dimen/picker_btn_size"
+                android:background="@drawable/circle_orange"
+                android:layout_marginStart="3dp" />
+
+            <Button
+                android:id="@+id/pick_red_btn"
+                android:layout_width="22dp"
+                android:layout_height="@dimen/picker_btn_size"
+                android:background="@drawable/circle_red"
+                app:layout_constraintBottom_toTopOf="parent"
+                android:layout_marginStart="3dp" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <!--cube representation-->
 
     <LinearLayout
         android:id="@+id/Botonera"

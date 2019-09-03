@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,8 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     Drawable prevPieceBg;                            //Default PieceBg
     boolean colorChange = false;                     //Default state
     boolean firstU0 = true;                          //If first piece click is U0
+    View colorPicker;
+
     StringBuilder cubeState = new StringBuilder(DEFAULT_STATE);
     TextView solutionTxt;
     TextView[] piecesHolder = new TextView[54];     //to store the string representation of a piece given an index
@@ -70,6 +73,7 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
         ImageView btnReset = view.findViewById(R.id.btn_reset);
         ImageView solveScramble = view.findViewById(R.id.solve_scramble_img);
         solutionTxt = view.findViewById(R.id.solution_txtview);
+        colorPicker = view.findViewById(R.id.color_picker);
 
         btnCamera.setOnClickListener(this);
         btnSolver.setOnClickListener(this);
@@ -226,25 +230,41 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
                                 prevPieceBg = view.getBackground();
 
                             if (currPieceId != id || firstU0) { // this validation (firstU0) is in case clicked del U0 in first time
-                                firstU0 = false; // only if restart the cubestate is true again
+                                firstU0 = false; // only if restart the cube state is "true" again
                                 if (!colorChange) // search the previous piece and recover background
                                 {
                                     int index = getIndex(currPieceId);       //searching for the object that contains the current id
                                     TextView prevPiece = piecesHolder[index];
                                     prevPiece.setBackground(prevPieceBg);
                                 }
+                                // Pieces selection
                                 colorChange = false;
-                                prevPieceBg = view.getBackground();
-                                currPieceId = id;
-                                view.setBackgroundResource(R.drawable.square_select);
+                                prevPieceBg = view.getBackground(); // save bg
+                                currPieceId = id; // save id
+                                view.setBackgroundResource(R.drawable.square_select); // set selection background
+
+                                //Set position to color picker
+                                int[] location = new int[2]; // absolute location in screen (x,y)
+                                view.getLocationOnScreen(location);
+                                if (location[0] < 698 && location[0] > 144)  // limit position to color picker
+                                    colorPicker.setTranslationX(location[0] - colorPicker.getWidth()/4);
+                                else if (location[0]< 145)
+                                    colorPicker.setTranslationX(view.getX()); //60
+                                else
+                                    colorPicker.setTranslationX(location[0]-colorPicker.getWidth()/1.4f); // 1.4 is a estimated value
+                                colorPicker.setTranslationY(location[1] - colorPicker.getHeight()*5.25f); // 5.25 is a estimated value
+
+                                //Set visibility
+                                colorPicker.setVisibility(View.VISIBLE);
 
                             } else {
                                 view.setBackground(prevPieceBg);
                                 currPieceId = R.id.preview_U0; // reset id
-                            }
-                           //view.getId();
-                            Log.d(TAG, "onClick: id " + currPieceId);
 
+                                //Set visibility
+                                colorPicker.setVisibility(View.INVISIBLE);
+                            }
+                            Log.d(TAG, "onClick: id " + currPieceId);
                         }
                     });
                 } /*else{  // if clicked the centerpiece, reset this face
