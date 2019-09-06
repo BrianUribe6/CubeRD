@@ -66,7 +66,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                         selected.clear();
                     }
                     HistoryDB.saveData(mContext, mData);   //Saving current history state
-                    Toast.makeText(mContext, "Delete Button Clicked", Toast.LENGTH_SHORT).show();
                     actionMode.finish();
                     return true;
                 default:
@@ -103,9 +102,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final SolveEntry mSelectedItem = mData.get(i);
-        String index = String.format(Locale.getDefault(),"%03d", mData.get(i).getIndex() + 1);
-        String time = mData.get(i).getTime();
-        String scramble = mData.get(i).getScramble();
+        SolveEntry currSolve = mData.get(i);
+        String index = String.format(Locale.getDefault(), "%03d", currSolve.getIndex() + 1);
+        String time = currSolve.getTime();
+        String scramble = currSolve.getScramble();
 
         viewHolder.index.setText(index);
         viewHolder.time.setText(time);
@@ -149,7 +149,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                         createRotateAnimator(viewHolder.expandCollapse, 180f, 0f).start();
                         expandedItems.put(currPos, false);
                     } else {
-                        viewHolder.scramble.setLines(2);    // expand
+                        viewHolder.scramble.setLines(3);    // expand
                         createRotateAnimator(viewHolder.expandCollapse, 0f, 180f).start();
                         TransitionManager.beginDelayedTransition(viewHolder.solveCard, new AutoTransition());
                         expandedItems.put(currPos, true);

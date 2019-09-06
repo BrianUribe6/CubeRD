@@ -32,7 +32,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
+        //TODO reverse list so the last solve appears first
         mAdapter = new HistoryAdapter(this, mData);
         recyclerView.setAdapter(mAdapter);
     }

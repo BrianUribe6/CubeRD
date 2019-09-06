@@ -110,7 +110,6 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
         boolean minutePassed = (time / 60000 >= 1);      // is time greater than 1 minute?
         SimpleDateFormat simpleDateFormat = minutePassed ? new SimpleDateFormat("mm:ss.SS", Locale.US) :
                 new SimpleDateFormat("ss.SS", Locale.US);
-
         return simpleDateFormat.format(new Date(time));
     }
 
@@ -140,8 +139,7 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
         setPreviewState(randomCube);
         //TODO Recompute statistics
         //Save Data
-        //TODO format index with leading zeroes and scramble shortened with ellipsis
-        mData.add(new SolveEntry(mData.size(), scramble, formatTime(time)));
+        mData.add(new SolveEntry(mData.size(), scramble, formatTime(time), time));
         HistoryDB.saveData(mContext, mData);
     }
 
@@ -215,5 +213,26 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
             }
         }
         return scramble.toString();
+    }
+
+    private String getStats(String keyword) {
+        switch (keyword) {
+            case "mean":
+                long sum = 0;
+                for (SolveEntry solve : mData) {
+                    sum += solve.getTimeMillis();
+                }
+                return formatTime(sum / mData.size());
+
+            case "best_single":
+                long min = mData.get(0).getTimeMillis();
+                for (SolveEntry solve : mData) {
+                    min = min < solve.getTimeMillis() ? min : solve.getTimeMillis();
+                }
+                return formatTime(min);
+            //TODO add remaining stats
+            default:
+                throw new IllegalArgumentException("Invalid keyword");
+        }
     }
 }
