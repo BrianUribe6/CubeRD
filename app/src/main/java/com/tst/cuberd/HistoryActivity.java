@@ -22,6 +22,7 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         Toolbar toolbar = findViewById(R.id.toolbar_history);
+        toolbar.setTitle(R.string.activity_history);
         setSupportActionBar(toolbar);                //Loading action bar
         mData = HistoryDB.loadData(this);   //Loading solve history data
         initRecyclerView();

@@ -4,6 +4,7 @@
     <string name="reset_btn">Reset</string>
     <string name="timer_tab">Timer</string>
     <string name="solver_tab">Solver</string>
+    <string name="activity_history">History</string>
 
     <!--Solve from scramble Dialog-->
     <string name="dialog_title">Solve from Scramble</string>
