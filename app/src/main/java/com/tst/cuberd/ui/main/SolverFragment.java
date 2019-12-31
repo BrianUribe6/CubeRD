@@ -11,6 +11,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +47,9 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     Drawable prevPieceBg;                            //Default PieceBg
     boolean colorChange = false;                     //Default state
     boolean firstU0 = true;                          //If first piece click is U0
-    View colorPicker;
+    boolean MultcolorSelected = false;
+    int idPrevColorSelected;
+    ViewGroup colorPicker;
 
     StringBuilder cubeState = new StringBuilder(DEFAULT_STATE);
     TextView solutionTxt;
@@ -95,13 +99,15 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         int index = getIndex(currPieceId);       //searching for the object that contains the current id
         TextView currPiece = piecesHolder[index];
+        int id = view.getId();
 
-        switch (view.getId()){
+        switch (id){
             case R.id.fab_camera:
                 break;
             case R.id.pick_white_btn:
                 currPiece.setBackgroundResource(R.drawable.square_white);
                 cubeState.setCharAt(index, 'U');
+
                 colorChange = true;
                 break;
             case R.id.pick_yellow_btn:
@@ -112,21 +118,25 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
             case R.id.pick_blue_btn:
                 currPiece.setBackgroundResource(R.drawable.square_blue);
                 cubeState.setCharAt(index, 'B');
+                //colorSelected = 'B';
                 colorChange = true;
                 break;
             case R.id.pick_green_btn:
                 currPiece.setBackgroundResource(R.drawable.square_green);
                 cubeState.setCharAt(index, 'F');
+                //colorSelected = 'F';
                 colorChange = true;
                 break;
             case R.id.pick_orange_btn:
                 currPiece.setBackgroundResource(R.drawable.square_orange);
                 cubeState.setCharAt(index, 'L');
+                //colorSelected = 'L';
                 colorChange = true;
                 break;
             case R.id.pick_red_btn:
                 currPiece.setBackgroundResource(R.drawable.square_red);
                 cubeState.setCharAt(index, 'R');
+                //colorSelected = 'R';
                 colorChange = true;
                 break;
             case R.id.solve_scramble_img:
@@ -154,11 +164,12 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
                     solutionTxt.setText(solution);
                 break;
         }
+        idPrevColorSelected = id; // save previous id
     }
 
     private void resetCube() {
         cubeState = new StringBuilder(DEFAULT_STATE);
-        Integer[] indices = {4, 13, 22,31, 40, 49};
+        Integer[] indices = {4, 13, 22, 31, 40, 49};
         Set<Integer> centerPiecesIndex= new HashSet<>(Arrays.asList(indices));
 
         for (int i = 0; i < piecesHolder.length; i++) {
@@ -225,45 +236,14 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onClick(View view) {
                             int id = view.getId();
+                            int[] location = new int[2]; // absolute location in screen (x,y)
 
                             if(prevPieceBg == null) // because prevPieceBg is empty
                                 prevPieceBg = view.getBackground();
+                            PieceSelection(view, id, location);
 
-                            if (currPieceId != id || firstU0) { // this validation (firstU0) is in case clicked del U0 in first time
-                                firstU0 = false; // only if restart the cube state is "true" again
-                                if (!colorChange) // search the previous piece and recover background
-                                {
-                                    int index = getIndex(currPieceId);       //searching for the object that contains the current id
-                                    TextView prevPiece = piecesHolder[index];
-                                    prevPiece.setBackground(prevPieceBg);
-                                }
-                                // Pieces selection
-                                colorChange = false;
-                                prevPieceBg = view.getBackground(); // save bg
-                                currPieceId = id; // save id
-                                view.setBackgroundResource(R.drawable.square_select); // set selection background
-
-                                //Set position to color picker
-                                int[] location = new int[2]; // absolute location in screen (x,y)
-                                view.getLocationOnScreen(location);
-                                if (location[0] < 698 && location[0] > 144)  // limit position to color picker
-                                    colorPicker.setTranslationX(location[0] - colorPicker.getWidth()/4);
-                                else if (location[0]< 145)
-                                    colorPicker.setTranslationX(view.getX()); //60
-                                else
-                                    colorPicker.setTranslationX(location[0]-colorPicker.getWidth()/1.4f); // 1.4 is a estimated value
-                                colorPicker.setTranslationY(location[1] - colorPicker.getHeight()*5.25f); // 5.25 is a estimated value
-
-                                //Set visibility
-                                colorPicker.setVisibility(View.VISIBLE);
-
-                            } else {
-                                view.setBackground(prevPieceBg);
-                                currPieceId = R.id.preview_U0; // reset id
-
-                                //Set visibility
-                                colorPicker.setVisibility(View.INVISIBLE);
-                            }
+                            Log.d(TAG, "Screen pos_x: " + location[0] + " pos_y: " + location[1]);
+                            Log.d(TAG, "ColorPicker pos_x: " + colorPicker.getX());
                             Log.d(TAG, "onClick: id " + currPieceId);
                         }
                     });
@@ -273,6 +253,59 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+
+    private void  PieceSelection(View view, int id, int[] location) {
+        if (currPieceId != id || firstU0) { // this validation (firstU0) is in case clicked del U0 in first time
+            firstU0 = false; // only if restart the cube state is "true" again
+            ColorRecovery(view, id);
+            //Set position to color picker
+            view.getLocationOnScreen(location);
+            SetPosColorPicker(location,view);
+            //Set visibility
+            TransitionManager.beginDelayedTransition(colorPicker, new AutoTransition());
+            colorPicker.setVisibility(View.VISIBLE);
+        } else {
+            view.setBackground(prevPieceBg);
+            currPieceId = R.id.preview_U0; // reset id
+            //Set visibility
+            TransitionManager.beginDelayedTransition(colorPicker, new AutoTransition());
+            colorPicker.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    private  void ColorRecovery(View view, int id){
+        if (!colorChange) // search the previous piece and recover background
+        {
+            int index = getIndex(currPieceId);       //searching for the object that contains the current id
+            TextView prevPiece = piecesHolder[index];
+            prevPiece.setBackground(prevPieceBg);
+        }
+        // Pieces selection
+        colorChange = false;
+        prevPieceBg = view.getBackground(); // save bg
+        currPieceId = id; // save id
+        view.setBackgroundResource(R.drawable.square_select); // set selection background
+    }
+
+
+    private void SetPosColorPicker(int[] location, View view){
+        int ColorPickerPos_x = location[0] - (colorPicker.getWidth()/2) + view.getWidth();
+
+        int[] temp = new int[2];  // location on screen hor_limit
+        piecesHolder[47].getLocationOnScreen(temp); // 47 is blue right-top piece
+        int HorizontalLimit = temp[0];
+
+        if (ColorPickerPos_x <= 0 )
+            colorPicker.setTranslationX(view.getX() + view.getWidth()/2);
+        else if (ColorPickerPos_x < (HorizontalLimit - colorPicker.getWidth()) )
+            colorPicker.setTranslationX(ColorPickerPos_x); //60}
+        else
+            colorPicker.setTranslationX(HorizontalLimit + view.getWidth() - colorPicker.getWidth());
+        colorPicker.setY( location[1] - view.getHeight() - colorPicker.getHeight()*2);
+    }
+
+
     private int getIndex(int id) {
         for (int i = 0; i < piecesHolder.length; i++) {
             if(piecesHolder[i].getId() == id){

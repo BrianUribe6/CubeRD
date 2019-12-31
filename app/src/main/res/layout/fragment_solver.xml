@@ -601,7 +601,7 @@
 
             <Button
                 android:id="@+id/pick_red_btn"
-                android:layout_width="22dp"
+                android:layout_width="@dimen/picker_btn_size"
                 android:layout_height="@dimen/picker_btn_size"
                 android:background="@drawable/circle_red"
                 app:layout_constraintBottom_toTopOf="parent"

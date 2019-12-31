@@ -15,5 +15,6 @@
     <color name="orange">#FF9015</color>
     <color name="yellow">#FFEB3B</color>
     <color name="grayBorder">#D9D9D9</color>
+    <color name="black">#404040</color>
 
 </resources>
