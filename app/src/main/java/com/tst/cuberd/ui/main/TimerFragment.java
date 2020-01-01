@@ -21,6 +21,7 @@ import com.tst.cuberd.HistoryActivity;
 import com.tst.cuberd.HistoryDB;
 import com.tst.cuberd.R;
 import com.tst.cuberd.SolveEntry;
+import com.tst.cuberd.Statistics;
 import com.tst.cuberd.min2phase.src.Search;
 import com.tst.cuberd.min2phase.src.Tools;
 
@@ -37,11 +38,9 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "TimerFragment";
     private Context mContext;
 
-    private TextView scrambleText;
+    private TextView scrambleText, timer, mean, ao3, ao5, ao12, best, bestAo5, bestAo12;
     private TextView[] piecesHolder = new TextView[54];
     private ImageView startStop;
-    private TextView timer;
-
     private boolean timerRunning = false;
     private String randomCube;
     private List<SolveEntry> mData;
@@ -66,16 +65,28 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
         super.onResume();
         //Reloading DB with the changes made on the History Activity Eg. solve deleted or list cleared
         mData = HistoryDB.loadData(mContext);
+        updateStats();
         init += System.currentTimeMillis() - paused;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_timer, container, false);
+        return inflater.inflate(R.layout.fragment_timer, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         scrambleText = view.findViewById(R.id.txt_scramble);
         timer = view.findViewById(R.id.chronometer);
         startStop = view.findViewById(R.id.start_stop);
+        mean = view.findViewById(R.id.textview_mean_time);
+        ao3 = view.findViewById(R.id.textview_mean_ao3__time);
+        ao5 = view.findViewById(R.id.textview_mean_ao5_time);
+        ao12 = view.findViewById(R.id.textview_mean_ao12_time);
+        best = view.findViewById(R.id.textview_best_time);
+        bestAo5 = view.findViewById(R.id.textview_best_ao5_time);
+        bestAo12 = view.findViewById(R.id.textview_best_ao12_time);
         FloatingActionButton historyFab = view.findViewById(R.id.history_fab);
 
         handler = new Handler();
@@ -102,11 +113,11 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
         //Initializing preview
         initPieces(view);
         setPreviewState(randomCube);
-
-        return view;
+        //Initializing statistics
+        updateStats();
     }
 
-    private String formatTime(long time) {
+    public static String formatTime(long time) {
         boolean minutePassed = (time / 60000 >= 1);      // is time greater than 1 minute?
         SimpleDateFormat simpleDateFormat = minutePassed ? new SimpleDateFormat("mm:ss.SS", Locale.US) :
                 new SimpleDateFormat("ss.SS", Locale.US);
@@ -130,6 +141,13 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void startTimer() {
+        init = System.currentTimeMillis();
+        handler.post(clockTick);
+        timerRunning = true;
+        startStop.setImageResource(R.drawable.stop_button);
+    }
+
     private void stopTimer() {
         timerRunning = false;
         startStop.setImageResource(R.drawable.ic_play_circle_filled_black_24dp);
@@ -137,17 +155,10 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
         String scramble = getScramble();
         scrambleText.setText(scramble);
         setPreviewState(randomCube);
-        //TODO Recompute statistics
-        //Save Data
+        //Save new data to storage
         mData.add(new SolveEntry(mData.size(), scramble, formatTime(time), time));
         HistoryDB.saveData(mContext, mData);
-    }
-
-    private void startTimer() {
-        init = System.currentTimeMillis();
-        handler.post(clockTick);
-        timerRunning = true;
-        startStop.setImageResource(R.drawable.stop_button);
+        updateStats();
     }
 
     private void setPreviewState(String cubeState) {
@@ -163,6 +174,17 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
             char piece = cubeState.charAt(i);
             piecesHolder[i].setBackgroundResource(colors.get(piece));
         }
+    }
+
+    private void updateStats() {
+        Statistics stats = new Statistics(mData);
+        mean.setText(stats.getMean());
+        ao3.setText(stats.getCurrAo3());
+        ao5.setText(stats.getCurrAo5());
+        ao12.setText(stats.getCurrAo12());
+        best.setText(stats.getBest());
+        bestAo5.setText(stats.getBestAo5());
+        bestAo12.setText(stats.getBestAo12());
     }
 
     private void initPieces(View view) {
@@ -213,26 +235,5 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
             }
         }
         return scramble.toString();
-    }
-
-    private String getStats(String keyword) {
-        switch (keyword) {
-            case "mean":
-                long sum = 0;
-                for (SolveEntry solve : mData) {
-                    sum += solve.getTimeMillis();
-                }
-                return formatTime(sum / mData.size());
-
-            case "best_single":
-                long min = mData.get(0).getTimeMillis();
-                for (SolveEntry solve : mData) {
-                    min = min < solve.getTimeMillis() ? min : solve.getTimeMillis();
-                }
-                return formatTime(min);
-            //TODO add remaining stats
-            default:
-                throw new IllegalArgumentException("Invalid keyword");
-        }
     }
 }

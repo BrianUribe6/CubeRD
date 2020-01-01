@@ -8,6 +8,7 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.transition.AutoTransition;
+import android.transition.Fade;
 import android.transition.TransitionManager;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -28,10 +29,21 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     private Context mContext;
     private List<SolveEntry> mData;
     private static final String TAG = "HistoryAdapter";
-
     private SparseBooleanArray expandedItems = new SparseBooleanArray();
     private ActionMode mActionMode;
     private List<SolveEntry> selected = new ArrayList<>();
+
+
+    public HistoryAdapter(Context mContext, List<SolveEntry> mData) {
+        this.mContext = mContext;
+        this.mData = mData;
+
+        //initializing all cards as minimized
+        for (int i = 0; i < mData.size(); i++) {
+            expandedItems.append(i, false);
+        }
+    }
+
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
         @Override
@@ -79,16 +91,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         }
     };
 
-
-    public HistoryAdapter(Context mContext, List<SolveEntry> mData) {
-        this.mContext = mContext;
-        this.mData = mData;
-
-        //initializing all cards as minimized
-        for (int i = 0; i < mData.size(); i++) {
-            expandedItems.append(i, false);
-        }
-    }
 
     @NonNull
     @Override

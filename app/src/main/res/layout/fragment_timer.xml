@@ -6,8 +6,41 @@
     android:layout_height="match_parent"
     android:background="#f2f2f2">
 
+    <ImageView
+        android:id="@+id/start_stop"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chronometer"
+        app:srcCompat="@drawable/ic_play_circle_filled_black_24dp" />
+
+    <ImageView
+        android:id="@+id/icon_mean"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginEnd="65dp"
+        app:layout_constraintEnd_toStartOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_stop"
+        app:srcCompat="@drawable/average" />
+
+    <ImageView
+        android:id="@+id/icon_best"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="105dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/divider2"
+        app:layout_constraintTop_toTopOf="@+id/barrier_stats"
+        app:srcCompat="@drawable/best" />
+
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/preview_faces_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -15,6 +48,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/chronometer"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
 
         <GridLayout
@@ -505,10 +539,136 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/textview_mean_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textview_mean_title"
+        app:layout_constraintStart_toStartOf="@+id/textview_mean_title"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_title" />
+
+    <TextView
+        android:id="@+id/textview_mean_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
+        android:text="@string/mean_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/icon_mean"
+        app:layout_constraintStart_toStartOf="@+id/icon_mean" />
+
+    <TextView
+        android:id="@+id/textview_best_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textview_best_ao12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
+        android:text="@string/ao12_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textview_best_ao5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/divider2"
+        app:layout_constraintTop_toBottomOf="@+id/icon_best"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textview_best_ao12_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textview_best_ao12"
+        app:layout_constraintEnd_toStartOf="@+id/textview_best_ao5_time"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="@+id/textview_best_ao12"
+        app:layout_constraintTop_toBottomOf="@+id/textview_best_ao12" />
+
+    <TextView
+        android:id="@+id/textview_best_ao5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/ao5_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textview_best_ao12"
+        app:layout_constraintTop_toBottomOf="@+id/icon_best" />
+
+    <TextView
+        android:id="@+id/textview_best_ao5_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textview_best_ao5"
+        app:layout_constraintStart_toStartOf="@+id/textview_best_ao5"
+        app:layout_constraintTop_toBottomOf="@+id/textview_best_ao5" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ao12_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao12_time"
+        app:layout_constraintEnd_toEndOf="@+id/divider2"
+        app:layout_constraintStart_toEndOf="@+id/icon_mean"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao5_time" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao12_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_mean_time"
+        app:layout_constraintEnd_toEndOf="@+id/textview_mean_ao12"
+        app:layout_constraintStart_toStartOf="@+id/textview_mean_ao12"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao12" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao5_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao12"
+        app:layout_constraintEnd_toEndOf="@+id/textview_mean_ao5"
+        app:layout_constraintStart_toStartOf="@+id/textview_mean_ao5"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao5" />
+
+    <TextView
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="336dp"
+        android:text="@string/time"
         android:textSize="75sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -519,10 +679,85 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="23dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/preview_faces_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/scramble" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/ao3_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao3__time"
+        app:layout_constraintEnd_toEndOf="@+id/divider2"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toEndOf="@+id/icon_mean"
+        app:layout_constraintTop_toBottomOf="@+id/start_stop" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao3__time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao5"
+        app:layout_constraintEnd_toEndOf="@+id/textview_mean_ao3"
+        app:layout_constraintStart_toStartOf="@+id/textview_mean_ao3"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao3" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ao5_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao5_time"
+        app:layout_constraintEnd_toEndOf="@+id/divider2"
+        app:layout_constraintStart_toEndOf="@+id/icon_mean"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao3__time" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/best_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/icon_best"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.403"
+        app:layout_constraintStart_toEndOf="@+id/icon_best"
+        app:layout_constraintTop_toTopOf="@+id/barrier_stats" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="1dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/grayLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_stop" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="start_stop"
+        tools:layout_editor_absoluteX="243dp"
+        tools:layout_editor_absoluteY="731dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/history_fab"
@@ -537,15 +772,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_history_black_24dp" />
 
-    <ImageView
-        android:id="@+id/start_stop"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chronometer"
-        app:srcCompat="@drawable/ic_play_circle_filled_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>
