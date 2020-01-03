@@ -7,13 +7,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,34 +27,31 @@ import com.tst.cuberd.R;
 import com.tst.cuberd.min2phase.src.Search;
 import com.tst.cuberd.min2phase.src.Tools;
 
-import org.opencv.core.Mat;
-
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-
 
 public class SolverFragment extends Fragment implements View.OnClickListener {
 
     Context mContext;
     private static final String TAG = "SolverFragment";
-
     final String DEFAULT_STATE = "****U********R********F********D********L********B****";
     final String SOLVED_STATE = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB";
-
-    int currPieceId = R.id.preview_U0;               //Default pieceID is the first piece of the cube
-    Drawable prevPieceBg;                            //Default PieceBg
-    boolean colorChange = false;                     //Default state
-    boolean firstU0 = true;                          //If first piece click is U0
-    boolean MultcolorSelected = false;
-    int idPrevColorSelected;
+    //Color picker variables
+    int currPieceId;
+    int currPieceIndex;
+    TextView currPiece;
+    SparseArray<TextView> piecesHolder = new SparseArray<>();     //container for all the pieces
+    Drawable prevPieceBg;                                         //Default PieceBg
+    boolean colorChange = false;                                  //Default state
+    boolean firstU0 = true;                                       //If first piece click is U0
+    boolean MultcolorSelected = false;                            //TODO implement multiple color selection
     ViewGroup colorPicker;
+    View prevColor;
 
     StringBuilder cubeState = new StringBuilder(DEFAULT_STATE);
     TextView solutionTxt;
-    TextView[] piecesHolder = new TextView[54];     //to store the string representation of a piece given an index
+
 
     @Override
     public void onAttach(Context context) {
@@ -64,9 +62,12 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_solver, container, false);
+    }
 
-        View view = inflater.inflate(R.layout.fragment_solver, container, false);
-        FloatingActionButton btnCamera = view.findViewById(R.id.fab_camera);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //Buttons
         Button btnSolver = view.findViewById(R.id.btn_solver);
         Button pickWhiteBtn = view.findViewById(R.id.pick_white_btn);
         Button pickYellowBtn= view.findViewById(R.id.pick_yellow_btn);
@@ -74,8 +75,14 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
         Button pickGreenBtn = view.findViewById(R.id.pick_green_btn);
         Button pickOrangeBtn = view.findViewById(R.id.pick_orange_btn);
         Button pickRedBtn = view.findViewById(R.id.pick_red_btn);
+        FloatingActionButton btnCamera = view.findViewById(R.id.fab_camera);
+        //ImageViews
         ImageView btnReset = view.findViewById(R.id.btn_reset);
         ImageView solveScramble = view.findViewById(R.id.solve_scramble_img);
+        //Layouts
+        ConstraintLayout cubePreview = view.findViewById(R.id.cube_preview);
+        ConstraintLayout parentLayout = view.findViewById(R.id.parent_layout_solver);
+        //OtherViews
         solutionTxt = view.findViewById(R.id.solution_txtview);
         colorPicker = view.findViewById(R.id.color_picker);
 
@@ -89,55 +96,36 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
         pickOrangeBtn.setOnClickListener(this);
         pickRedBtn.setOnClickListener(this);
         solveScramble.setOnClickListener(this);
+        cubePreview.setOnClickListener(this);
+        parentLayout.setOnClickListener(this);
 
         initPieces(view);
         Search.init();
-        return view;
     }
 
     @Override
     public void onClick(View view) {
-        int index = getIndex(currPieceId);       //searching for the object that contains the current id
-        TextView currPiece = piecesHolder[index];
         int id = view.getId();
-
         switch (id){
             case R.id.fab_camera:
                 break;
             case R.id.pick_white_btn:
-                currPiece.setBackgroundResource(R.drawable.square_white);
-                cubeState.setCharAt(index, 'U');
-
-                colorChange = true;
+                setCurrPieceColor(view, R.drawable.square_white);
                 break;
             case R.id.pick_yellow_btn:
-                currPiece.setBackgroundResource(R.drawable.square_yellow);
-                cubeState.setCharAt(index, 'D');
-                colorChange = true;
+                setCurrPieceColor(view, R.drawable.square_yellow);
                 break;
             case R.id.pick_blue_btn:
-                currPiece.setBackgroundResource(R.drawable.square_blue);
-                cubeState.setCharAt(index, 'B');
-                //colorSelected = 'B';
-                colorChange = true;
+                setCurrPieceColor(view, R.drawable.square_blue);
                 break;
             case R.id.pick_green_btn:
-                currPiece.setBackgroundResource(R.drawable.square_green);
-                cubeState.setCharAt(index, 'F');
-                //colorSelected = 'F';
-                colorChange = true;
+                setCurrPieceColor(view, R.drawable.square_green);
                 break;
             case R.id.pick_orange_btn:
-                currPiece.setBackgroundResource(R.drawable.square_orange);
-                cubeState.setCharAt(index, 'L');
-                //colorSelected = 'L';
-                colorChange = true;
+                setCurrPieceColor(view, R.drawable.square_orange);
                 break;
             case R.id.pick_red_btn:
-                currPiece.setBackgroundResource(R.drawable.square_red);
-                cubeState.setCharAt(index, 'R');
-                //colorSelected = 'R';
-                colorChange = true;
+                setCurrPieceColor(view, R.drawable.square_red);
                 break;
             case R.id.solve_scramble_img:
                 showSolveScrambleDialog();
@@ -163,8 +151,55 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
                     }
                     solutionTxt.setText(solution);
                 break;
+            default:
+                if (colorPicker.getVisibility() == View.VISIBLE) {
+                    hideColorPicker();
+                }
+                break;
         }
-        idPrevColorSelected = id; // save previous id
+    }
+
+    private void setCurrPieceColor(View view, int drawableId) {
+        currPiece.setBackgroundResource(drawableId);
+        switch (drawableId) {
+            case R.drawable.square_white:
+                cubeState.setCharAt(currPieceIndex, 'U');
+                break;
+            case R.drawable.square_yellow:
+                cubeState.setCharAt(currPieceIndex, 'D');
+                break;
+            case R.drawable.square_blue:
+                cubeState.setCharAt(currPieceIndex, 'B');
+                break;
+            case R.drawable.square_green:
+                cubeState.setCharAt(currPieceIndex, 'F');
+                break;
+            case R.drawable.square_red:
+                cubeState.setCharAt(currPieceIndex, 'R');
+                break;
+            case R.drawable.square_orange:
+                cubeState.setCharAt(currPieceIndex, 'L');
+                break;
+        }
+        scaleViewAnimation(view);
+        colorChange = true;
+        hideColorPicker();
+    }
+
+    /**
+     * Scaling animation for color picker buttons. If a previous color had already been chosen
+     * such button would be scaled up, and the current button would be scaled down.
+     *
+     * @param view : the color picker's button to animate.
+     */
+    private void scaleViewAnimation(View view) {
+        final float scaleFactor = 0.75f;
+        if (prevColor != null) {
+            prevColor.animate().scaleX(1f).scaleY(1f); // returning to original size
+            Log.d(TAG, "scaleViewAnimation: scaled Up");
+        }
+        view.animate().scaleX(scaleFactor).scaleY(scaleFactor);
+        prevColor = view;
     }
 
     private void resetCube() {
@@ -172,42 +207,18 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
         Integer[] indices = {4, 13, 22, 31, 40, 49};
         Set<Integer> centerPiecesIndex= new HashSet<>(Arrays.asList(indices));
 
-        for (int i = 0; i < piecesHolder.length; i++) {
+        for (int i = 0; i < piecesHolder.size(); i++) {
             if (centerPiecesIndex.contains(i)){
                 //Skip center pieces
                 continue;
             }
-            piecesHolder[i].setBackgroundResource(R.drawable.square_gray);
+            piecesHolder.valueAt(i).setBackgroundResource(R.drawable.square_gray);
         }
         firstU0 = true;
     }
 
-   /* private void resetCube(String face) { //Reset a face
-        cubeState = new StringBuilder(DEFAULT_STATE);
-        Integer[] indices = {4, 13, 22,31, 40, 49};
-        Set<Integer> centerPiecesIndex= new HashSet<>(Arrays.asList(indices));
-        int strt = 0;
-        int end = piecesHolder.length;
-        switch (face){
-            case "U": strt = 0; end = 9; firstU0 = true; break;
-            case "R": strt = 9; end = 18; break;
-            case "F": strt = 18; end = 27; break;
-            case "L": strt = 27; end = 36; break;
-            case "D": strt = 36; end = 45; break;
-            case "B": strt = 45; end = 54; break;
-        }
-        for (int i = strt; i < end; i++) {
-            if (centerPiecesIndex.contains(i)){
-                //Skip center pieces
-                continue;
-            }
-            piecesHolder[i].setBackgroundResource(R.drawable.square_gray);
-        }
-    }*/
-
     private void showError(char errorCode, View view) {
-        //convert char in int
-        int idxError = (int)errorCode;
+        int idxError = Character.getNumericValue(errorCode);
         int[] errorList = {
                 R.string.error_code_1,
                 R.string.error_code_2,
@@ -224,61 +235,71 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     //initializes onCLickListener method for every piece of the cube
     private void initPieces(View view) {
         String[] piecesNames = {"U", "R", "F", "D", "L", "B"};
-
         int idx = 0;
         for (String pieceName : piecesNames) {
             for (int j = 0; j < 9; j++) {
                 String name = "preview_" + pieceName + j;
                 int id = getResources().getIdentifier(name, "id", mContext.getPackageName());
-                piecesHolder[idx] = view.findViewById(id);
-                if (j != 4) {             //Getting the id of the current piece onClick (excluding center pieces)
-                    piecesHolder[idx].setOnClickListener(new View.OnClickListener() {
+                final TextView piece = view.findViewById(id);
+                final int position = idx;
+                if (j != 4) {     // excluding center pieces
+                    piece.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            currPieceIndex = position;
                             int id = view.getId();
                             int[] location = new int[2]; // absolute location in screen (x,y)
-
-                            if(prevPieceBg == null) // because prevPieceBg is empty
+                            if (prevPieceBg == null)     // because prevPieceBg is empty
                                 prevPieceBg = view.getBackground();
-                            PieceSelection(view, id, location);
+                            if (prevColor != null) {     // reset to original size
+                                prevColor.setScaleX(1f);
+                                prevColor.setScaleY(1f);
+                                prevColor = null;
+                            }
+                            pieceSelection(view, id, location);
+                            currPiece = piece;
 
                             Log.d(TAG, "Screen pos_x: " + location[0] + " pos_y: " + location[1]);
                             Log.d(TAG, "ColorPicker pos_x: " + colorPicker.getX());
-                            Log.d(TAG, "onClick: id " + currPieceId);
+                            Log.d(TAG, "onClick: id " + currPieceIndex);
                         }
                     });
-                } /*else{  // if clicked the centerpiece, reset this face
-                    resetCube("U");}*/
+                }
                 idx++;
+                piecesHolder.put(id, piece);
             }
         }
     }
 
-    private void  PieceSelection(View view, int id, int[] location) {
+    private void showColorPicker() {
+        TransitionManager.beginDelayedTransition(colorPicker, new AutoTransition());
+        colorPicker.setVisibility(View.VISIBLE);
+    }
+
+    private void hideColorPicker() {
+        TransitionManager.beginDelayedTransition(colorPicker, new AutoTransition());
+        colorPicker.setVisibility(View.GONE);
+    }
+
+    private void pieceSelection(View view, int id, int[] location) {
         if (currPieceId != id || firstU0) { // this validation (firstU0) is in case clicked del U0 in first time
             firstU0 = false; // only if restart the cube state is "true" again
-            ColorRecovery(view, id);
+            colorRecovery(view, id);
             //Set position to color picker
             view.getLocationOnScreen(location);
             SetPosColorPicker(location,view);
-            //Set visibility
-            TransitionManager.beginDelayedTransition(colorPicker, new AutoTransition());
-            colorPicker.setVisibility(View.VISIBLE);
+            showColorPicker();
         } else {
             view.setBackground(prevPieceBg);
             currPieceId = R.id.preview_U0; // reset id
-            //Set visibility
-            TransitionManager.beginDelayedTransition(colorPicker, new AutoTransition());
-            colorPicker.setVisibility(View.INVISIBLE);
+            hideColorPicker();
         }
     }
 
-
-    private  void ColorRecovery(View view, int id){
+    private void colorRecovery(View view, int id) {
         if (!colorChange) // search the previous piece and recover background
         {
-            int index = getIndex(currPieceId);       //searching for the object that contains the current id
-            TextView prevPiece = piecesHolder[index];
+            TextView prevPiece = piecesHolder.get(id);
             prevPiece.setBackground(prevPieceBg);
         }
         // Pieces selection
@@ -288,31 +309,21 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
         view.setBackgroundResource(R.drawable.square_select); // set selection background
     }
 
-
     private void SetPosColorPicker(int[] location, View view){
         int ColorPickerPos_x = location[0] - (colorPicker.getWidth()/2) + view.getWidth();
 
         int[] temp = new int[2];  // location on screen hor_limit
-        piecesHolder[47].getLocationOnScreen(temp); // 47 is blue right-top piece
+        piecesHolder.valueAt(47).getLocationOnScreen(temp); // 47 is blue right-top piece
         int HorizontalLimit = temp[0];
 
         if (ColorPickerPos_x <= 0 )
             colorPicker.setTranslationX(view.getX() + view.getWidth()/2);
-        else if (ColorPickerPos_x < (HorizontalLimit - colorPicker.getWidth()) )
+        else if (ColorPickerPos_x < (HorizontalLimit - colorPicker.getWidth()))
             colorPicker.setTranslationX(ColorPickerPos_x); //60}
         else
             colorPicker.setTranslationX(HorizontalLimit + view.getWidth() - colorPicker.getWidth());
+
         colorPicker.setY( location[1] - view.getHeight() - colorPicker.getHeight()*2);
-    }
-
-
-    private int getIndex(int id) {
-        for (int i = 0; i < piecesHolder.length; i++) {
-            if(piecesHolder[i].getId() == id){
-                return i;
-            }
-        }
-        return -1;
     }
 
     private String solveCube(String cubeState) {
@@ -353,14 +364,29 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
         // changing colors
         for (int j = 0; j < cubeState.length(); j++) {
             char color = cubeState.charAt(j);
+            int key = piecesHolder.keyAt(j);
+            TextView piece = piecesHolder.valueAt(j);
             switch (color){
-                case 'U': piecesHolder[j].setBackgroundResource(R.drawable.square_white); break;
-                case 'R': piecesHolder[j].setBackgroundResource(R.drawable.square_red); break;
-                case 'F': piecesHolder[j].setBackgroundResource(R.drawable.square_green); break;
-                case 'L': piecesHolder[j].setBackgroundResource(R.drawable.square_orange); break;
-                case 'D': piecesHolder[j].setBackgroundResource(R.drawable.square_yellow); break;
-                case 'B': piecesHolder[j].setBackgroundResource(R.drawable.square_blue); break;
+                case 'U':
+                    piece.setBackgroundResource(R.drawable.square_white);
+                    break;
+                case 'R':
+                    piece.setBackgroundResource(R.drawable.square_red);
+                    break;
+                case 'F':
+                    piece.setBackgroundResource(R.drawable.square_green);
+                    break;
+                case 'L':
+                    piece.setBackgroundResource(R.drawable.square_orange);
+                    break;
+                case 'D':
+                    piece.setBackgroundResource(R.drawable.square_yellow);
+                    break;
+                case 'B':
+                    piece.setBackgroundResource(R.drawable.square_blue);
+                    break;
             }
+            piecesHolder.put(key, piece);
         }
     }
 }

@@ -2,11 +2,65 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/parent_layout_solver"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor">
 
+
+    <Button
+        android:id="@+id/btn_solver"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="78dp"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:text="@string/solver_tab"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_reset"
+        android:layout_width="60dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_refresh_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_solver"
+        app:layout_constraintEnd_toStartOf="@+id/solve_scramble_img"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/btn_solver"
+        app:layout_constraintTop_toTopOf="@+id/barrier" />
+
+    <ImageView
+        android:id="@+id/solve_scramble_img"
+        android:layout_width="60dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_scramble"
+        app:layout_constraintBottom_toTopOf="@+id/btn_solver"
+        app:layout_constraintEnd_toEndOf="@+id/btn_solver"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_reset"
+        app:layout_constraintTop_toTopOf="@+id/barrier" />
+
+    <TextView
+        android:id="@+id/solution_txtview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_solver"
+        app:layout_constraintStart_toStartOf="@+id/btn_solver"
+        app:layout_constraintTop_toBottomOf="@+id/btn_solver" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="btn_reset,solve_scramble_img"
+        tools:layout_editor_absoluteY="602dp" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cube_preview"
@@ -14,8 +68,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_reset"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -547,14 +602,27 @@
 
     </android.support.constraint.ConstraintLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
+
     <android.support.v7.widget.CardView
         android:id="@+id/color_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/backgroundColor"
-        app:cardCornerRadius="60dp"
         android:elevation="3dp"
         android:visibility="invisible"
+        app:cardBackgroundColor="@color/backgroundColor"
+        app:cardCornerRadius="60dp"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -569,8 +637,8 @@
                 android:id="@+id/pick_white_btn"
                 android:layout_width="@dimen/picker_btn_size"
                 android:layout_height="@dimen/picker_btn_size"
-                android:background="@drawable/circle_white"
-                android:layout_marginEnd="3dp"/>
+                android:layout_marginEnd="3dp"
+                android:background="@drawable/circle_white" />
 
             <Button
                 android:id="@+id/pick_yellow_btn"
@@ -582,148 +650,32 @@
                 android:id="@+id/pick_blue_btn"
                 android:layout_width="@dimen/picker_btn_size"
                 android:layout_height="@dimen/picker_btn_size"
-                android:background="@drawable/circle_blue"
-                android:layout_marginStart="3dp"/>
+                android:layout_marginStart="3dp"
+                android:background="@drawable/circle_blue" />
 
             <Button
                 android:id="@+id/pick_green_btn"
                 android:layout_width="@dimen/picker_btn_size"
                 android:layout_height="@dimen/picker_btn_size"
-                android:background="@drawable/circle_green"
-                android:layout_marginStart="3dp" />
+                android:layout_marginStart="3dp"
+                android:background="@drawable/circle_green" />
 
             <Button
                 android:id="@+id/pick_orange_btn"
                 android:layout_width="@dimen/picker_btn_size"
                 android:layout_height="@dimen/picker_btn_size"
-                android:background="@drawable/circle_orange"
-                android:layout_marginStart="3dp" />
+                android:layout_marginStart="3dp"
+                android:background="@drawable/circle_orange" />
 
             <Button
                 android:id="@+id/pick_red_btn"
                 android:layout_width="@dimen/picker_btn_size"
                 android:layout_height="@dimen/picker_btn_size"
+                android:layout_marginStart="3dp"
                 android:background="@drawable/circle_red"
-                app:layout_constraintBottom_toTopOf="parent"
-                android:layout_marginStart="3dp" />
+                app:layout_constraintBottom_toTopOf="parent" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-    <!--cube representation-->
-
-    <LinearLayout
-        android:id="@+id/Botonera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/Sequence"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cube_preview">
-
-        <ImageView
-            android:id="@+id/btn_reset"
-            android:layout_width="60dp"
-            android:layout_height="68dp"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_refresh_black_24dp" />
-
-        <ImageView
-            android:id="@+id/solve_scramble_img"
-            android:layout_width="60dp"
-            android:layout_height="68dp"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_scramble" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/Botonera2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/Botonera"
-        tools:layout_editor_absoluteX="0dp">
-
-        <Button
-            android:id="@+id/btn_solver"
-            android:layout_width="146dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_bg_rounded_corners"
-            android:text="@string/solver_tab"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </LinearLayout>
-
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/Sequence"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Botonera"
-        tools:layout_editor_absoluteX="6dp">
-
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/solution_txtview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/mov_seq"
-                android:textColor="@color/grayDark"
-                android:textSize="28dp" />
-
-            <!--<Button-->
-            <!--android:id="@+id/nextStep"-->
-            <!--android:layout_width="45dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="40dp"-->
-            <!--android:background="@drawable/next_enabled"-->
-            <!--android:scaleY=".38" />-->
-        </LinearLayout>
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:backgroundTint="@color/colorPrimary"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>
