@@ -6,27 +6,771 @@
     android:layout_height="match_parent"
     android:background="#f2f2f2">
 
-    <TextView
-        android:id="@+id/txt_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/start_stop"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/time"
-        android:textSize="@android:dimen/app_icon_size"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/chronometer"
+        app:srcCompat="@drawable/ic_play_circle_filled_black_24dp" />
+
+    <ImageView
+        android:id="@+id/icon_mean"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginEnd="65dp"
+        app:layout_constraintEnd_toStartOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_stop"
+        app:srcCompat="@drawable/average" />
+
+    <ImageView
+        android:id="@+id/icon_best"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="105dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/divider2"
+        app:layout_constraintTop_toTopOf="@+id/barrier_stats"
+        app:srcCompat="@drawable/best" />
+
+    <LinearLayout
+        android:id="@+id/preview_faces_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/chronometer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <GridLayout
+            android:id="@+id/timer_preview_white_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/timer_preview_U0"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_U1"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_U2"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_U3"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_U4"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/timer_preview_U5"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_U6"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_U7"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_U8"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/timer_preview_yellow_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/timer_pieces_margin"
+            android:orientation="vertical"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/timer_preview_D0"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_D1"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_D2"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_D3"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_D4"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:background="@color/yellow" />
+
+            <TextView
+                android:id="@+id/timer_preview_D5"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_D6"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_D7"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_D8"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/timer_preview_green_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/timer_pieces_margin"
+            android:orientation="vertical"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/timer_preview_F0"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_F1"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_F2"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_F3"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_F4"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:background="@color/green" />
+
+            <TextView
+                android:id="@+id/timer_preview_F5"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_F6"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_F7"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_F8"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/timer_preview_blue_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/timer_pieces_margin"
+            android:orientation="vertical"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/timer_preview_B0"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_B1"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_B2"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_B3"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_B4"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:background="@color/blue" />
+
+            <TextView
+                android:id="@+id/timer_preview_B5"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_B6"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_B7"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_B8"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/timer_preview_orange_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/timer_pieces_margin"
+            android:orientation="vertical"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/timer_preview_L0"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_L1"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_L2"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_L3"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_L4"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:background="@color/orange" />
+
+            <TextView
+                android:id="@+id/timer_preview_L5"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_L6"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_L7"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_L8"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/timer_preview_red_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/timer_pieces_margin"
+            android:orientation="vertical"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/timer_preview_R0"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_R1"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_R2"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_R3"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_R4"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:background="@color/red" />
+
+            <TextView
+                android:id="@+id/timer_preview_R5"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_R6"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_R7"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:background="@drawable/square_grey" />
+
+            <TextView
+                android:id="@+id/timer_preview_R8"
+                android:layout_width="@dimen/timer_cube_preview"
+                android:layout_height="@dimen/timer_cube_preview"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:background="@drawable/square_grey" />
+        </GridLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textview_mean_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textview_mean_title"
+        app:layout_constraintStart_toStartOf="@+id/textview_mean_title"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_title" />
+
+    <TextView
+        android:id="@+id/textview_mean_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
+        android:text="@string/mean_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/icon_mean"
+        app:layout_constraintStart_toStartOf="@+id/icon_mean" />
+
+    <TextView
+        android:id="@+id/textview_best_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textview_best_ao12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
+        android:text="@string/ao12_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textview_best_ao5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/divider2"
+        app:layout_constraintTop_toBottomOf="@+id/icon_best"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textview_best_ao12_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textview_best_ao12"
+        app:layout_constraintEnd_toStartOf="@+id/textview_best_ao5_time"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="@+id/textview_best_ao12"
+        app:layout_constraintTop_toBottomOf="@+id/textview_best_ao12" />
+
+    <TextView
+        android:id="@+id/textview_best_ao5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/ao5_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textview_best_ao12"
+        app:layout_constraintTop_toBottomOf="@+id/icon_best" />
+
+    <TextView
+        android:id="@+id/textview_best_ao5_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textview_best_ao5"
+        app:layout_constraintStart_toStartOf="@+id/textview_best_ao5"
+        app:layout_constraintTop_toBottomOf="@+id/textview_best_ao5" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ao12_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao12_time"
+        app:layout_constraintEnd_toEndOf="@+id/divider2"
+        app:layout_constraintStart_toEndOf="@+id/icon_mean"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao5_time" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao12_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_mean_time"
+        app:layout_constraintEnd_toEndOf="@+id/textview_mean_ao12"
+        app:layout_constraintStart_toStartOf="@+id/textview_mean_ao12"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao12" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao5_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao12"
+        app:layout_constraintEnd_toEndOf="@+id/textview_mean_ao5"
+        app:layout_constraintStart_toStartOf="@+id/textview_mean_ao5"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao5" />
+
+    <TextView
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="336dp"
+        android:text="@string/time"
+        android:textSize="75sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txt_scramble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_timer"
-        tools:layout_editor_absoluteX="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/preview_faces_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/scramble" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/ao3_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao3__time"
+        app:layout_constraintEnd_toEndOf="@+id/divider2"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toEndOf="@+id/icon_mean"
+        app:layout_constraintTop_toBottomOf="@+id/start_stop" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao3__time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao5"
+        app:layout_constraintEnd_toEndOf="@+id/textview_mean_ao3"
+        app:layout_constraintStart_toStartOf="@+id/textview_mean_ao3"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao3" />
+
+    <TextView
+        android:id="@+id/textview_mean_ao5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ao5_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textview_mean_ao5_time"
+        app:layout_constraintEnd_toEndOf="@+id/divider2"
+        app:layout_constraintStart_toEndOf="@+id/icon_mean"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mean_ao3__time" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/best_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/icon_best"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.403"
+        app:layout_constraintStart_toEndOf="@+id/icon_best"
+        app:layout_constraintTop_toTopOf="@+id/barrier_stats" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="1dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/grayLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_stop" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="start_stop"
+        tools:layout_editor_absoluteX="243dp"
+        tools:layout_editor_absoluteY="731dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/history_fab"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_history_black_24dp" />
+
 
 </android.support.constraint.ConstraintLayout>

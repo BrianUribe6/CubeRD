@@ -5,9 +5,15 @@
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <!--Size of the cube's faces in solver's tab-->
     <dimen name="cube_piece_size">21dp</dimen>
+    <!--Color Picker-->
     <dimen name="border_piece">2dp</dimen>
     <dimen name="border_piece_select">4dp</dimen>
     <dimen name="picker_btn_size">30dp</dimen>
+    <!--Size of the cube's faces in timer's tab-->
+    <dimen name="timer_cube_preview">12dp</dimen>
+    <dimen name="timer_pieces_margin">8dp</dimen>
+    <dimen name="cube_piece_size">21dp</dimen>
 
 </resources>

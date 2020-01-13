@@ -7,7 +7,7 @@
         android:id="@+id/solve_scramble_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/scramble_hint"
+        android:hint="@string/dialog_scramble_hint"
         android:ems="10"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"

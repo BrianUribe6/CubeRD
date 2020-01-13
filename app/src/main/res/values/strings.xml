@@ -1,11 +1,23 @@
 <resources>
     <string name="app_name">CubeRD</string>
-    <string name="mov_title">Movimientos</string>
+    <string name="mov_title">Moves</string>
     <string name="reset_btn">Reset</string>
     <string name="mov_seq"> </string>
     <string name="timer_tab">Timer</string>
     <string name="solver_tab">Solver</string>
+    <string name="activity_history">History</string>
+
+    <!--Solve from scramble Dialog-->
+    <string name="dialog_title">Solve from Scramble</string>
+    <string name="dialog_scramble_hint">Type the scramble you want to solve</string>
+
     <!--Timer tab -->
+    <string name="time" translatable="false">00.00</string>
+    <string name="scramble" translatable="false">L  B2 R  L2 U2 F2 D\' R\' F2 U2 F  R2 U2 L2 D2 L2 B  R2 L2</string>
+    <string name="ao3_title" translatable="false">Ao3</string>
+    <string name="ao5_title" translatable="false">Ao5</string>
+    <string name="ao12_title" translatable="false">Ao12</string>
+    <string name="mean_title">MEAN</string>
     <string name="time">00.00</string>
     <string name="scramble">L  B2 R  L2 U2 F2 D\' R\' F2 U2 F  R2 U2 L2 D2 L2 B  R2 L2</string>
     <string name="ao3_title">Ao3</string>
@@ -17,19 +29,7 @@
     <string name="avg_title">Mean</string>
     <string name="avg_time">00:00:00</string>
     <string name="best_title">BEST</string>
-    <string name="best_time">00:00:00</string>
-    <string name="best_ao3_time">00:00:00</string>
-    <string name="best_ao5_time">00:00:00</string>
-    <!--Solve from scramble Dialog-->
-    <string name="dialog_title">Solve from Scramble</string>
-    <string name="scramble_hint">Type the scramble you want to solve</string>
-    <string name="R_suggestion">R</string>
-    <string name="L_suggestion">L</string>
-    <string name="U_suggestion">U</string>
-    <string name="D_suggestion">D</string>
-    <string name="F_suggestion">F</string>
-    <string name="B_suggestion">B</string>
-    <string name="prime_suggestion">\'</string>
+
     <!--Errors-->
     <string name="error_code_1">Invalid Cube: There are not exactly nine facelets of each color!</string>
     <string name="error_code_2">Invalid Cube: Not all 12 edges exist exactly once!</string>
@@ -39,5 +39,18 @@
     <string name="error_code_6">Parity error: Two corners or two edges have to be exchanged!</string>
     <string name="error_code_7">No solution exists for the given maximum move number!</string>
     <string name="error_code_8">Timeout, no solution found within given maximum time!</string>
+
+    <!--Shared Preferences-->
+    <string name="PREFERENCE_HISTORY_DB" translatable="false">com.tst.cuberd.PREFERENCE_HISTORY_DB</string>
+    <string name="PREFERENCE_SOLVE_HISTORY" translatable="false">Solve history data</string>
+
+    <!--Action Bar-->
+    <string name="action_about">About</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_mode_select">selected</string>
+
+    <string name="title_clear_history">Clear History</string>
+    <string name="title_select_all">Select All</string>
+    <string name="title_share">Share</string>
     <string name="title_color_picker">Choose a color</string>
 </resources>
