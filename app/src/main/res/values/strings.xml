@@ -2,7 +2,7 @@
     <string name="app_name">CubeRD</string>
     <string name="mov_title">Moves</string>
     <string name="reset_btn">Reset</string>
-    <string name="mov_seq"> </string>
+    <string name="mov_seq" translatable="false"> </string>
     <string name="timer_tab">Timer</string>
     <string name="solver_tab">Solver</string>
     <string name="activity_history">History</string>
@@ -18,16 +18,6 @@
     <string name="ao5_title" translatable="false">Ao5</string>
     <string name="ao12_title" translatable="false">Ao12</string>
     <string name="mean_title">MEAN</string>
-    <string name="time">00.00</string>
-    <string name="scramble">L  B2 R  L2 U2 F2 D\' R\' F2 U2 F  R2 U2 L2 D2 L2 B  R2 L2</string>
-    <string name="ao3_title">Ao3</string>
-    <string name="ao3_time">00:00:00</string>
-    <string name="ao5_title">Ao5</string>
-    <string name="ao5_time">00:00:00</string>
-    <string name="ao12_title">Ao12</string>
-    <string name="ao12_time">00:00:00</string>
-    <string name="avg_title">Mean</string>
-    <string name="avg_time">00:00:00</string>
     <string name="best_title">BEST</string>
 
     <!--Errors-->

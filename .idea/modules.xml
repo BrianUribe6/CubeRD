@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CubeRD.iml" filepath="$PROJECT_DIR$/CubeRD.iml" />
-      <module fileurl="file://$PROJECT_DIR$/OpenCvLibrary410/OpenCvLibrary410.iml" filepath="$PROJECT_DIR$/OpenCvLibrary410/OpenCvLibrary410.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CubeRD.iml" filepath="$PROJECT_DIR$/CubeRD.iml" group="CubeRD" />
+      <module fileurl="file://$PROJECT_DIR$/OpenCvLibrary410/OpenCvLibrary410.iml" filepath="$PROJECT_DIR$/OpenCvLibrary410/OpenCvLibrary410.iml" group="CubeRD/OpenCvLibrary410" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="CubeRD/app" />
     </modules>
   </component>
 </project>
