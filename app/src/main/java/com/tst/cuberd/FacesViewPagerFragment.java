@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -20,21 +21,19 @@ import android.widget.TextView;
 import com.tst.cuberd.util.CubeSolverUtil;
 
 public class FacesViewPagerFragment extends Fragment implements View.OnClickListener {
-    private int faceId;
-    private int faceColor;
-    private boolean initialized = false;
-    private TextView[] piecesHolder;
+    private Face mFace;
     private Context mContext;
+    private TextView[] piecesHolder;
+    private boolean pieceSelected = false;
     //Color selection
     private RelativeLayout faceLayout;
     private int currPieceIndex;
     private CardView colorPicker;
     private View activeColor;
 
-    final int PIECES_NUMBER = 9;
-    final CubeSolverUtil cube = CubeSolverUtil.getInstance();
-    final static String ID_KEY = "face_id";
-    final static String COLOR_KEY = "face_color";
+    private final int PIECES_NUMBER = CubeSolverUtil.NUMBER_OF_PIECES;
+    private final CubeSolverUtil cube = CubeSolverUtil.getInstance();
+    private static final String KEY = "cube_face";
     private static final String TAG = "FacesViewPagerFragment";
 
 
@@ -42,8 +41,7 @@ public class FacesViewPagerFragment extends Fragment implements View.OnClickList
         FacesViewPagerFragment fragment = new FacesViewPagerFragment();
         if (face != null) {
             Bundle bundle = new Bundle();
-            bundle.putInt(ID_KEY, face.getFaceId());
-            bundle.putInt(COLOR_KEY, face.getFaceColor());
+            bundle.putParcelable(KEY, face);
             fragment.setArguments(bundle);
         }
         return fragment;
@@ -59,9 +57,7 @@ public class FacesViewPagerFragment extends Fragment implements View.OnClickList
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            faceId = getArguments().getInt(ID_KEY);
-            faceColor = getArguments().getInt(COLOR_KEY);
-            initialized = true;
+            mFace = getArguments().getParcelable(KEY);
         }
     }
 
@@ -73,53 +69,60 @@ public class FacesViewPagerFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        if (initialized) {
-            initFace(view);
-            Button pickWhiteBtn = view.findViewById(R.id.pick_white_btn);
-            Button pickYellowBtn = view.findViewById(R.id.pick_yellow_btn);
-            Button pickBlueBtn = view.findViewById(R.id.pick_blue_btn);
-            Button pickGreenBtn = view.findViewById(R.id.pick_green_btn);
-            Button pickOrangeBtn = view.findViewById(R.id.pick_orange_btn);
-            Button pickRedBtn = view.findViewById(R.id.pick_red_btn);
-            faceLayout = view.findViewById(R.id.cube_face);
-            colorPicker = view.findViewById(R.id.color_picker);
+        Button pickWhiteBtn = view.findViewById(R.id.pick_white_btn);
+        Button pickYellowBtn = view.findViewById(R.id.pick_yellow_btn);
+        Button pickBlueBtn = view.findViewById(R.id.pick_blue_btn);
+        Button pickGreenBtn = view.findViewById(R.id.pick_green_btn);
+        Button pickOrangeBtn = view.findViewById(R.id.pick_orange_btn);
+        Button pickRedBtn = view.findViewById(R.id.pick_red_btn);
+        CardView faceAboveColor = view.findViewById(R.id.top_face);
+        faceLayout = view.findViewById(R.id.cube_face);
+        colorPicker = view.findViewById(R.id.color_picker);
 
-            pickWhiteBtn.setOnClickListener(this);
-            pickYellowBtn.setOnClickListener(this);
-            pickBlueBtn.setOnClickListener(this);
-            pickGreenBtn.setOnClickListener(this);
-            pickOrangeBtn.setOnClickListener(this);
-            pickRedBtn.setOnClickListener(this);
-            faceLayout.setOnClickListener(this);
-        }
+        pickWhiteBtn.setOnClickListener(this);
+        pickYellowBtn.setOnClickListener(this);
+        pickBlueBtn.setOnClickListener(this);
+        pickGreenBtn.setOnClickListener(this);
+        pickOrangeBtn.setOnClickListener(this);
+        pickRedBtn.setOnClickListener(this);
+        faceLayout.setOnClickListener(this);
+
+        initFace(view, faceAboveColor);
     }
 
-    /**
-     * Initializes onClick for each of the current face pieces according to
-     *
-     * @param view: Current view associated with the fragment's instance. (onViewCreated)
-     */
-    private void initFace(View view) {
+    private void initFace(View view, CardView faceAboveColor) {
+        if (mFace == null) {
+            return;
+        }
+        currPieceIndex = -1;
         final int CENTER_PIECE = PIECES_NUMBER / 2;
         char[] faceToChar = {'U', 'R', 'F', 'D', 'L', 'B'};
         piecesHolder = new TextView[PIECES_NUMBER];
         for (int i = 0; i < PIECES_NUMBER; i++) {
-            TextView piece = view.findViewWithTag("p" + i);
+            final TextView piece = view.findViewWithTag("p" + i);
             piecesHolder[i] = piece;
             final int currPos = i;
             if (i != CENTER_PIECE) {
                 piece.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (currPieceIndex != -1 && pieceSelected) {
+                            //return previous piece to its original size
+                            scaleViewAnimation(piecesHolder[currPieceIndex], true);
+                        }
                         currPieceIndex = currPos;
                         showColorPicker();
+                        scaleViewAnimation(view, false);
+                        pieceSelected = true;
                     }
                 });
             } else {
-                piece.setBackgroundResource(faceColor);
-                cube.setPiece(cube.getPiecePosition(faceId, i), faceToChar[faceId]);
+                piece.setBackgroundResource(mFace.getColor());
+                cube.setPiece(cube.getPiecePosition(mFace.getPos(), i), faceToChar[mFace.getPos()]);
             }
         }
+        int color = ContextCompat.getColor(mContext, mFace.getColorAbove());
+        faceAboveColor.setCardBackgroundColor(color);
     }
 
     @Override
@@ -144,14 +147,20 @@ public class FacesViewPagerFragment extends Fragment implements View.OnClickList
                 setCurrPieceColor(view, R.drawable.square_red);
                 break;
             default:
-                hideColorPicker();
+                if (colorPicker.getVisibility() == View.VISIBLE) {
+                    hideColorPicker();
+                }
+                if (pieceSelected) {
+                    scaleViewAnimation(piecesHolder[currPieceIndex], true);
+                    pieceSelected = false;
+                }
                 break;
         }
     }
 
     private void setCurrPieceColor(View view, int drawableId) {
         TextView currPiece = piecesHolder[currPieceIndex];
-        int i = cube.getPiecePosition(faceId, currPieceIndex);
+        int i = cube.getPiecePosition(mFace.getPos(), currPieceIndex);
         currPiece.setBackgroundResource(drawableId);
         switch (drawableId) {
             case R.drawable.square_white:
@@ -173,18 +182,25 @@ public class FacesViewPagerFragment extends Fragment implements View.OnClickList
                 cube.setPiece(i, 'L');
                 break;
         }
-        scaleViewAnimation(view);
+        scaleViewAnimation(currPiece, true);
         hideColorPicker();
     }
 
     private void showColorPicker() {
+        int verticalPosition;
         int rightMostPiece = piecesHolder[2].getId();
         int leftMostPiece = piecesHolder[0].getId();
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        layoutParams.addRule(RelativeLayout.ABOVE, piecesHolder[currPieceIndex].getId());
+        if (currPieceIndex == 0 || currPieceIndex == 1 || currPieceIndex == 2) {
+            //Piece is in the top layer, so we place the color picker under it
+            verticalPosition = RelativeLayout.BELOW;
+        } else {
+            verticalPosition = RelativeLayout.ABOVE;
+        }
+
         if (currPieceIndex == 2 || currPieceIndex == 5 || currPieceIndex == 8) {
             //The current piece is on the right side
             layoutParams.addRule(RelativeLayout.END_OF, leftMostPiece);
@@ -194,6 +210,7 @@ public class FacesViewPagerFragment extends Fragment implements View.OnClickList
         } else {
             layoutParams.addRule(RelativeLayout.START_OF, rightMostPiece);
         }
+        layoutParams.addRule(verticalPosition, piecesHolder[currPieceIndex].getId());
         //moving colorPicker to the new position
         faceLayout.removeView(colorPicker);
         faceLayout.addView(colorPicker, layoutParams);
@@ -208,19 +225,17 @@ public class FacesViewPagerFragment extends Fragment implements View.OnClickList
     }
 
     /**
-     * Scaling animation for color picker buttons. If there is an active color
-     * such button would be scaled up, and the current button would be scaled down.
+     * Scales any view by a fixed 15% of its original size.
      *
-     * @param view : the color picker's button to animate.
+     * @param view    : the view to be scaled.
+     * @param expand: restores original size if true else scales.
      */
-    private void scaleViewAnimation(View view) {
-        final float scaleFactor = 0.75f;
-        if (activeColor != null) {
-            activeColor.animate().scaleX(1f).scaleY(1f); // returning to original size
-            Log.d(TAG, "scaleViewAnimation: scaled Up");
-        }
-        view.animate().scaleX(scaleFactor).scaleY(scaleFactor);
-        activeColor = view;
+    private void scaleViewAnimation(View view, boolean expand) {
+        final float scaleFactor = 0.85f;
+        if (expand)
+            view.animate().scaleX(1f).scaleY(1f);
+        else
+            view.animate().scaleX(scaleFactor).scaleY(scaleFactor);
     }
 
     /**
@@ -228,7 +243,7 @@ public class FacesViewPagerFragment extends Fragment implements View.OnClickList
      * After a change on {@link CubeSolverUtil}
      */
     public void notifyCubeStateChanged() {
-        int start = cube.getPiecePosition(faceId, 0);
+        int start = cube.getPiecePosition(mFace.getPos(), 0);
         int end = start + PIECES_NUMBER;
         int j = 0;
         String cubeState = cube.getCubeState();

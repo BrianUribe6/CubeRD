@@ -11,9 +11,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +31,7 @@ import com.tst.cuberd.min2phase.src.Tools;
 import com.tst.cuberd.util.CubeSolverUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class SolverFragment extends Fragment implements View.OnClickListener {
 
@@ -43,8 +40,6 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "SolverFragment";
     //Color picker variables
-    private SparseArray<TextView> piecesHolder;        //container for all the pieces
-    private View prevColor;
     private ViewPager mFacesViewPager;
     private TabLayout mFacesTabLayout;
     private CubeSolverUtil cube;
@@ -63,7 +58,6 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        piecesHolder = new SparseArray<>();
         mFacesViewPager = view.findViewById(R.id.view_pager_faces);
         mFacesTabLayout = view.findViewById(R.id.tab_layout_faces);
 
@@ -88,14 +82,23 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initFacesPagerAdapter() {
-        final int FACES_NUMBER = 6;
-        int[] faceToColor = {R.drawable.square_white, R.drawable.square_red,
+        final int FACES_NUMBER = CubeSolverUtil.NUMBER_OF_FACES;
+        final int[] faceToColor = {R.drawable.square_white, R.drawable.square_red,
                 R.drawable.square_green, R.drawable.square_yellow,
                 R.drawable.square_orange, R.drawable.square_blue};
 
+        //contains the color that must be above each face
+        final int[] colorAbove = new int[FACES_NUMBER];
+        //top face of white = blue
+        colorAbove[0] = R.color.blue;
+        //top face of red, green, orange, blue = white
+        colorAbove[1] = colorAbove[2] = colorAbove[4] = colorAbove[5] = R.color.white;
+        //top face of yellow = green
+        colorAbove[3] = R.color.green;
+
         List<Fragment> faces = new ArrayList<>();
         for (int j = 0; j < FACES_NUMBER; j++) {
-            Face face = new Face(j, faceToColor[j]);
+            Face face = new Face(j, faceToColor[j], colorAbove[j]);
             FacesViewPagerFragment fragment = FacesViewPagerFragment.newInstance(face);
             faces.add(fragment);
         }
@@ -140,21 +143,6 @@ public class SolverFragment extends Fragment implements View.OnClickListener {
                 solutionTxt.setText(solution);
                 break;
         }
-    }
-    /**
-     * Scaling animation for color picker buttons. If a previous color had already been chosen
-     * such button would be scaled up, and the current button would be scaled down.
-     *
-     * @param view : the color picker's button to animate.
-     */
-    private void scaleViewAnimation(View view) {
-        final float scaleFactor = 0.75f;
-        if (prevColor != null) {
-            prevColor.animate().scaleX(1f).scaleY(1f); // returning to original size
-            Log.d(TAG, "scaleViewAnimation: scaled Up");
-        }
-        view.animate().scaleX(scaleFactor).scaleY(scaleFactor);
-        prevColor = view;
     }
 
     private void showError(char errorCode, View view) {
